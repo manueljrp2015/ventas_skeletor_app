@@ -69,7 +69,7 @@ $CI =& get_instance();
             <li><a href="<?= base_url("client/index-client-create") ?>">Crear Tienda</a></li>
             <li><a href="<?= base_url("products/index") ?>">Crear Productos</a></li>
             <li><a href="<?= base_url("prices/prices-managment") ?>">Precios</a></li>
-            <li><a href="<?= base_url("prices/prices-managment") ?>">Pagos</a></li>
+            <li><a href="<?= base_url("administration/pay") ?>">Pagos</a></li>
           </ul>
         </div>
       </li>

@@ -67,9 +67,7 @@ $route['validate-mail-recovery']                = '/app/validation/appValidation
 $route['dashboard/welcome']                     = '/app/dashboard/appDashboardController/indexDashboard';
 $route['dashboard/get-analisis-store']          = '/app/dashboard/appDashboardController/getAnalisisStore';
 
-
 $route['shutdown/session']                      = '/app/dashboard/appDashboardController/destroySession';
-
 
 $route['user/myaccount']                        = '/app/user/appUserController/indexMyAccount';
 $route['user/myaccount/store-data']             = '/app/user/appUserController/storeData';
@@ -87,7 +85,6 @@ $route['empresa/registrar']                     = '/app/business/appBusinessCont
 $route['empresa/registrar-exec']                = '/app/business/appBusinessController/storeBusiness';
 $route['empresa/validate-idb']                  = '/app/validation/appValidationController/validateIdb';
 
-
 $route['empresa-admin/gestionar']               = '/app/business/appBusinessAdminController/indexBusinnesAdm';
 $route['empresa-admin/registrar-exec']          = '/app/business/appBusinessController/storeBusinessAdmin';
 $route['empresa-admin/validate-idb']            = '/app/validation/appValidationController/validateIdb';
@@ -98,8 +95,6 @@ $route['empresa-admin/configuration-business']  = '/app/business/appBusinessAdmi
 $route['empresa-admin/register-cfg']            = '/app/business/appBusinessAdminController/storeBusinessCfg';
 $route['empresa-admin/update-business-exec']    = '/app/business/appBusinessAdminController/updateBusinessExec';
 $route['empresa-admin/block-business']          = '/app/business/appBusinessAdminController/blockBusiness';
-
-
 
 $route['user-admin/user-managment']             = '/app/user/appUserAdminController/indexUserAdmin';
 $route['user-admin/change-keya']                = '/app/user/appUserAdminController/changeKeyAdmin';
@@ -161,7 +156,6 @@ $route['(:any)/get-pueblo-tnt']                 = '/app/orders/appOrdersControll
 $route['(:any)/get-cost-tnt']                   = '/app/orders/appOrdersController/getCostTnt';
 $route['(:any)/get-giro-relationship']          = '/app/orders/appOrdersController/getGiroRelationship';
 
-
 $route['prices/view-list-prices']               = '/app/prices/appPricesController/indexListProductos';
 $route['prices/get-product-active-for-store']   = '/app/prices/appPricesController/getListProductForStoreActive';
 $route['prices/get-product-inactive-for-store'] = '/app/prices/appPricesController/getListProductForStoreInactive';
@@ -175,14 +169,12 @@ $route['orderuser/orders-change-state']         = '/app/orderuser/appOrderuserCo
 
 $route['orderuser/orders-gif-promo']            = '/app/orderuser/appOrderuserController/gifPromo';
 
-
 $route['process/adjust-courier']                = '/app/orders/appOrdersController/indexChangeAjust';
 $route['process/get-cost-order']                = '/app/orders/appOrdersController/getCostOrder';
 $route['process/save-cost-order']               = '/app/orders/appOrdersController/saveCostOrder';
 
 $route['process/analysis']                      = '/app/analysis/AppAnalysisController/indexTemp';
 $route['process/get-analisis-store']            = '/app/analysis/AppAnalysisController/getAnalisisStore';
-
 
 $route['odbc-test']                             = '/app/odbc/appOdbcController/testConn';
 $route['odbc/view-odbc']                        = '/app/odbc/appOdbcController/viewOdbc';
@@ -194,7 +186,6 @@ $route['store/get-list-product-store']          = '/app/store/appStoreController
 $route['store/put-product-orders']              = '/app/store/appStoreController/putProductOrder';
 $route['store/find-product-for-name']           = '/app/store/appStoreController/findProductForName';
 $route['(:any)/find-order-pending-store']       = '/app/store/appStoreController/findOrderPending';
-
 
 $route['mi-carrito']                            = '/app/cart/appCartController/indexCart';
 $route['mi-carrito/get-list-cart']              = '/app/cart/appCartController/getListCart';
@@ -208,13 +199,13 @@ $route['(:any)/calculate-tnt']                  = '/app/tnt/appTntController/cal
 $route['(:any)/save-courier-order']             = '/app/transactions/appTransactionsController/saveCourierOrder';
 $route['(:any)/according-order']                = '/app/transactions/appTransactionsController/accordingOrder';
 
-$route['mis-compras/purchases']                      = '/app/purchases/appPurchasesController/indexPurchases';
-$route['mis-compras/my-purchases']                   = '/app/purchases/appPurchasesController/getPurchasesForStore';
-$route['mis-compras/get-courier-order']              = '/app/purchases/appPurchasesController/getCourierOrder';
-$route['mis-compras/get-item-order']                 = '/app/purchases/appPurchasesController/getItemOrder';
-$route['mis-compras/get-timeline-order']             = '/app/purchases/appPurchasesController/getTimeLine';
-$route['mis-compras/get-comment-order']              = '/app/purchases/appPurchasesController/getComment';
-$route['mis-compras/put-comment-order']              = '/app/purchases/appPurchasesController/PutComment';
+$route['mis-compras/purchases']                 = '/app/purchases/appPurchasesController/indexPurchases';
+$route['mis-compras/my-purchases']              = '/app/purchases/appPurchasesController/getPurchasesForStore';
+$route['mis-compras/get-courier-order']         = '/app/purchases/appPurchasesController/getCourierOrder';
+$route['mis-compras/get-item-order']            = '/app/purchases/appPurchasesController/getItemOrder';
+$route['mis-compras/get-timeline-order']        = '/app/purchases/appPurchasesController/getTimeLine';
+$route['mis-compras/get-comment-order']         = '/app/purchases/appPurchasesController/getComment';
+$route['mis-compras/put-comment-order']         = '/app/purchases/appPurchasesController/PutComment';
 
 $route['settings/index']                        = '/app/settings/appSettingsController';
 $route['settings/get-params-store']             = '/app/settings/appSettingsController/getSettingsParamStore';
@@ -223,7 +214,7 @@ $route['settings/put-payment']                  = '/app/settings/appSettingsCont
 $route['settings/update-payment']               = '/app/settings/appSettingsController/updatePayment';
 $route['settings/get-list-reload']              = '/app/settings/appSettingsController/getReloadCredict';
 $route['settings/get-reload-id']                = '/app/settings/appSettingsController/getReloadCredictId';
-$route['settings/put-reload']                  = '/app/settings/appSettingsController/putReload';
+$route['settings/put-reload']                   = '/app/settings/appSettingsController/putReload';
 
 $route['client/index-client-create']            = '/app/client/AppClientController/indexStoreCreate';
 $route['client/get-store-id']                   = '/app/client/AppClientController/getStoreId';
@@ -240,7 +231,6 @@ $route['products/put-product']                  = '/app/product/AppProductContro
 $route['products/update-product']               = '/app/product/AppProductController/updateProduct';
 $route['products/get-product-from-id']          = '/app/product/AppProductController/getProductFromId';
 
-
 $route['prices/prices-managment']               = '/app/prices/appPricesNewController';
 $route['prices/update-price']                   = '/app/prices/appPricesNewController/updatePrices';
 $route['prices/upload-files-excel']             = '/app/prices/appPricesNewController/uploadFileExcelList';
@@ -248,7 +238,7 @@ $route['prices/get-prices-for-client']          = '/app/prices/appPricesNewContr
 $route['prices/update-price-client']            = '/app/prices/appPricesNewController/updatePriceClient';
 $route['prices/transfer-prices']                = '/app/prices/appPricesNewController/transferPrices';
 $route['prices/transfer-prices-multiple']       = '/app/prices/appPricesNewController/transferPricesMultiple';
-$route['prices/get-list-price']       			= '/app/prices/appPricesNewController/getListPrice';
+$route['prices/get-list-price']                 = '/app/prices/appPricesNewController/getListPrice';
 
 $route['(:any)/invoice']                        = '/app/pdf/appPdfController/invoice';
 $route['(:any)/comprobante']                    = '/app/pdf/appPdfController/comprobanteRegistro';
@@ -262,11 +252,11 @@ $route['(:any)/checklist-picking']              = '/app/pdf/appPdfController/che
 $route['(:any)/checklist-verify']               = '/app/pdf/appPdfController/checklistVerify';
 
 $route['cellar/cellar-order-management']        = '/app/cellar/appCellarController';
-$route['cellar/cellar-picking']       		    = '/app/cellar/appCellarController/indexCellarPicking';
-$route['cellar/cellar-verify']       			= '/app/cellar/appCellarController/indexCellarVerify';
-$route['cellar/cellar-tranport']       			= '/app/cellar/appCellarController/indexCellarTransport';
-$route['cellar/cellar-deleteitem-order']       	= '/app/cellar/appCellarController/deleteItemOrder';
-$route['cellar/purchases']       	            = '/app/cellar/appCellarController/getPurchasesForStore';
+$route['cellar/cellar-picking']                 = '/app/cellar/appCellarController/indexCellarPicking';
+$route['cellar/cellar-verify']                  = '/app/cellar/appCellarController/indexCellarVerify';
+$route['cellar/cellar-tranport']                = '/app/cellar/appCellarController/indexCellarTransport';
+$route['cellar/cellar-deleteitem-order']        = '/app/cellar/appCellarController/deleteItemOrder';
+$route['cellar/purchases']                      = '/app/cellar/appCellarController/getPurchasesForStore';
 $route['cellar/get-courier-order']              = '/app/cellar/appCellarController/getCourierOrder';
 $route['cellar/get-item-order']                 = '/app/cellar/appCellarController/getItemOrder';
 $route['cellar/get-timeline-order']             = '/app/cellar/appCellarController/getTimeLine';
@@ -278,18 +268,18 @@ $route['cellar/calculate-tnt-manual']           = '/app/cellar/appCellarControll
 $route['cellar/save-transport-manual']          = '/app/cellar/appCellarController/asignedTransportManual';
 $route['(:any)/get-state-order']                = '/app/cellar/appCellarController/getOrderState';
 $route['cellar/change-state-order']             = '/app/cellar/appCellarController/changeState';
-
 $route['cellar/picking']                        = '/app/cellar/appCellarController/indexPicking';
 $route['cellar/get-order-for-pickin']           = '/app/cellar/appCellarController/getOrderForPicking';
 $route['cellar/get-item-order-for-pickin']      = '/app/cellar/appCellarController/getItemOrderForPicking';
 $route['cellar/picking-order']                  = '/app/cellar/appCellarController/pickingOrder';
 $route['cellar/change-state']                   = '/app/cellar/appCellarController/changeStateGeneric';
-
-
 $route['cellar/verify']                         = '/app/cellar/appCellarController/indexVerify';
 $route['cellar/get-order-for-verify']           = '/app/cellar/appCellarController/getOrderForVerify';
 $route['cellar/get-item-order-for-verify']      = '/app/cellar/appCellarController/getItemOrderForVerify';
 $route['cellar/verify-order']                   = '/app/cellar/appCellarController/verifyOrder';
+
+
+$route['administration/pay']                    = '/app/administration/appAdministrationController/indexPay';
 
 
 $route['(:any)/upload-files-payment']           = '/app/payment/appPaymentController/uploadFileSupport';
