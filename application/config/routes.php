@@ -280,7 +280,7 @@ $route['cellar/verify-order']                   = '/app/cellar/appCellarControll
 
 
 $route['administration/pay']                    = '/app/administration/appAdministrationController/indexPay';
-
+$route['administration/get-pay-month']          = '/app/administration/appAdministrationController/getPayMonth';
 
 $route['(:any)/upload-files-payment']           = '/app/payment/appPaymentController/uploadFileSupport';
 $route['mis-pagos/pagos']                       = '/app/payment/appPaymentController/indexPay';

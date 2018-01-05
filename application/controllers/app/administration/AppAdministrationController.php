@@ -31,6 +31,13 @@ class AppAdministrationController extends CI_Controller {
 	    $this->load->view("app/template/index_template_app", $data);
 	}
 
+
+	public function getPayMonth(){
+		$response = ["text" => json_encode( [
+		        	"data" => $this->AppAdministrationModel->getPayMonth()])];
+		$this->load->view("app/response/text", $response);
+	} 
+
 }
 
 /* End of file AppAdministrationController.php */

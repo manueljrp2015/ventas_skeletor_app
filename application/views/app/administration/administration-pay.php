@@ -34,7 +34,7 @@
 								</div>
 								<div class="row">
 									<div class="col s12 m6 l12">
-										<div id="tbpick" style="text-align: center;"></div>
+										<div id="tbpay" style="text-align: center;"></div>
 									</div>
 								</div>
 							</p>

@@ -58,7 +58,7 @@ class appPaymentModel extends CI_Model
 				LEFT JOIN tbapp_bank as bk2 on bk2.id = pay._bank_destiny
 				LEFT JOIN tbapp_stores as st on st.id = pay._store_id
 				WHERE
-					pay._store_id  (".$this->session->userdata("stores_new").");
+					pay._store_id in  (".$this->session->userdata("stores_new").");
 				")->result();
 		}
 		
