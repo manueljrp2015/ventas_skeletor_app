@@ -259,7 +259,7 @@ $route['(:any)/precios-lista']                  = '/app/pdf/appPdfController/lis
 $route['(:any)/reporte-credito']                = '/app/pdf/appPdfController/listaReporteCredito';
 $route['(:any)/reporte-recargas-balance']       = '/app/pdf/appPdfController/listaReporteRecargasBalance';
 $route['(:any)/checklist-picking']              = '/app/pdf/appPdfController/checklistPickig';
-$route['(:any)/checklist-VERIFY']              = '/app/pdf/appPdfController/checklistvERIFY';
+$route['(:any)/checklist-verify']               = '/app/pdf/appPdfController/checklistVerify';
 
 $route['cellar/cellar-order-management']        = '/app/cellar/appCellarController';
 $route['cellar/cellar-picking']       		    = '/app/cellar/appCellarController/indexCellarPicking';
