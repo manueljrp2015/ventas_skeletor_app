@@ -20,8 +20,7 @@
 							<p class="p-v-sm">
 								<div class="row">
 									<div class="input-field col s12 m6 l4">
-										<select name="_store_pay" id="_store_pay" class="js-states browser-default" style="width: 100%">
-											<option value="" disabled="" selected=""> </option>
+										<select name="_store_pay" id="_store_pay" class="js-states browser-default" style="width: 100%"  multiple="multiple">
 											<?php foreach (json_decode($listStore) as $key => $value):  ?>
 											<option value="<?= $value->id ?>"><?= sprintf("%05d",$value->id)." - ".$value->_store ?></option>
 											<?php endforeach; ?>
@@ -51,6 +50,37 @@
 														
 													</div>
 												</div>
+											</div>
+											<div class="modal-footer">
+												<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div id="modal13" class="modal" style="width: 600px;">
+										<div class="modal-content">
+											<h4>Información de Pago</h4>
+											<h3 style="color: green;" id="tlb-order"></h3>
+											<div class="row">
+												<ul class="collapsible" data-collapsible="accordion">
+													<li>
+														<div class="collapsible-header"><i class="material-icons">info</i>Información</div>
+														<div class="collapsible-body" id="tbinfo">
+														</div>
+													</li>
+													<li>
+														<div class="collapsible-header"><i class="material-icons">timeline</i>Timeline</div>
+														<div class="collapsible-body" id="tbtime">
+														</div>
+													</li>
+													<li>
+														<div class="collapsible-header"><i class="material-icons">attach_file</i>Adjunto</div>
+														<div class="collapsible-body" id="tbattach">
+																	
+														</div>
+													</li>
+												</ul>
 											</div>
 											<div class="modal-footer">
 												<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>

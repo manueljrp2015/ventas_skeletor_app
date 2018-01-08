@@ -45,6 +45,27 @@ class AppAdministrationController extends CI_Controller {
 		$this->load->view("app/response/text", $response);
 	} 
 
+
+		public function changeStateGeneric(){
+
+		$response = array(
+            		"text" => json_encode($this->appAdministrationModel->changeStateGeneric($this->input->post()
+					)));
+		$this->load->view("app/response/text", $response);
+	}
+
+	public function getPayClient(){
+		$response = ["text" => json_encode( [
+		        	"data" => $this->appAdministrationModel->getPayClient($this->input->get())])];
+		$this->load->view("app/response/text", $response);
+	} 
+
+	public function getPayClientId(){
+		$response = ["text" => json_encode( [
+		        	"data" => $this->appAdministrationModel->getPayClientId($this->input->get())])];
+		$this->load->view("app/response/text", $response);
+	} 
+
 }
 
 /* End of file AppAdministrationController.php */

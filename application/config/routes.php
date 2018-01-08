@@ -281,8 +281,10 @@ $route['cellar/verify-order']                   = '/app/cellar/appCellarControll
 
 $route['administration/pay']                    = '/app/administration/appAdministrationController/indexPay';
 $route['administration/get-pay-month']          = '/app/administration/appAdministrationController/getPayMonth';
+$route['administration/get-pay-client']         = '/app/administration/appAdministrationController/getPayClient';
+$route['administration/get-pay-id']             = '/app/administration/appAdministrationController/getPayClientId';
 $route['administration/get-state-pay']          = '/app/administration/appAdministrationController/getOrderState';
-$route['administration/change-state-pay']       = '/app/administration/appAdministrationController/getOrderState';
+$route['administration/change-state-pay']       = '/app/administration/appAdministrationController/changeStateGeneric';
 
 $route['(:any)/upload-files-payment']           = '/app/payment/appPaymentController/uploadFileSupport';
 $route['mis-pagos/pagos']                       = '/app/payment/appPaymentController/indexPay';
