@@ -8,7 +8,7 @@ class AppAdministrationController extends CI_Controller {
 		parent::__construct();
 		$this->appoAuthModel->oauthChecked();
 		$this->load->model([
-			"app/administration/AppAdministrationModel",
+			"app/administration/appAdministrationModel",
 			'app/catalogs/AppCatalogsModel'
 			]);
 	}
@@ -34,7 +34,14 @@ class AppAdministrationController extends CI_Controller {
 
 	public function getPayMonth(){
 		$response = ["text" => json_encode( [
-		        	"data" => $this->AppAdministrationModel->getPayMonth()])];
+		        	"data" => $this->appAdministrationModel->getPayMonth()])];
+		$this->load->view("app/response/text", $response);
+	} 
+
+
+	public function getOrderState(){
+		$response = ["text" => json_encode( [
+		        	"data" => $this->appAdministrationModel->getOrderState($this->input->post())])];
 		$this->load->view("app/response/text", $response);
 	} 
 

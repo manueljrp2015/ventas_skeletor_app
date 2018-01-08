@@ -614,7 +614,7 @@ $(function() {
                     '<td style="text-align: center;"><a href="javascript: void(0)" title="Detalle de la compra" onclick="getItemOrder(' + val._order_id + ')"><i class="material-icons">event_note</i></a></td>' +
                     '<td style="text-align: center;"><a href="javascript: void(0)" title="Timeline de la compra" onclick="timelineOrder(' + val._order_id + ')""><i class="material-icons">timeline</i></a></td>' +
                     '<td style="text-align: center;"><a href="javascript: void(0)" title="Asignar Transporte Manual" onclick="modalTransportManual(' + val._order_id + ',' + val._store_id + ')""><i class="material-icons">move_to_inbox</i></a></td>' +
-                    '<td style="text-align: center;"><a href="javascript: void(0)" title="Asignar Transporte Manual" onclick="modalChangeState(' + val._order_id + ')""><i class="material-icons">flag</i></a></td>' +
+                    '<td style="text-align: center;"><a href="javascript: void(0)" title="Cambiar Estado del Pedido" onclick="modalChangeState(' + val._order_id + ')""><i class="material-icons">flag</i></a></td>' +
                     '<td>' + val.id + '</td>' +
                     '<td>' + val._order_id + '</td>' +
                     '<td>' + bill + '</td>' +

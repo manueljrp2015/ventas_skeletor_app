@@ -29,7 +29,7 @@ class appPaymentModel extends CI_Model
 	}
 
 	public function savePay($file, $data){
-		$this->db->insert("tbapp_payments", self::dataPay($file, $data));
+		$this->db->insert("tbapp_order_payment", self::dataPay($file, $data));
 		return $this->db->insert("tbapp_order_timeline", [
 			"_order_id"    => $data["_order_id"],
 			"_order_state" => 10
@@ -42,7 +42,7 @@ class appPaymentModel extends CI_Model
 			return $this->db->query("
 				SELECT
 				ty._type_payment as paym, bk1._bank as bank_ori, bk2._bank as bank_dest, st._store, pay.* FROM
-				tbapp_payments as pay
+				tbapp_order_payment as pay
 				LEFT JOIN tbapp_type_payments as ty ON ty.id = pay._type_payment
 				LEFT JOIN tbapp_bank as bk1 on bk1.id = pay._bank_origyn
 				LEFT JOIN tbapp_bank as bk2 on bk2.id = pay._bank_destiny
@@ -52,7 +52,7 @@ class appPaymentModel extends CI_Model
 			return $this->db->query("
 				SELECT
 				ty._type_payment as paym, bk1._bank as bank_ori, bk2._bank as bank_dest, st._store, pay.* FROM
-				tbapp_payments as pay
+				tbapp_order_payment as pay
 				LEFT JOIN tbapp_type_payments as ty ON ty.id = pay._type_payment
 				LEFT JOIN tbapp_bank as bk1 on bk1.id = pay._bank_origyn
 				LEFT JOIN tbapp_bank as bk2 on bk2.id = pay._bank_destiny

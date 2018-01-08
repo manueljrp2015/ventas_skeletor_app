@@ -33,6 +33,32 @@
 									</div>
 								</div>
 								<div class="row">
+									<div id="modal12" class="modal" style="width: 400px;">
+										<div class="modal-content">
+											<h4>Cambiar Estado</h4>
+											<h3 style="color: green;" id="tlb-order"></h3>
+											<div class="row">
+												<div class="row">
+													<div class="input-field col s12 statess">
+														
+													</div>
+													<div class="input-field col s12">
+														<a href="javascript: void(0)" id="btChangeState" class="waves-effect waves-light btn indigo"><i class="material-icons left">traffic</i> Cambiar</a>
+													</div>
+												</div>
+												<div class="row">
+													<div id="loader9" style="text-align: center;">
+														
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
 									<div class="col s12 m6 l12">
 										<div id="tbpay" style="text-align: center;"></div>
 									</div>

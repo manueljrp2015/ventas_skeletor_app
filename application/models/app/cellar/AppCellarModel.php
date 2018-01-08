@@ -79,8 +79,8 @@ class AppCellarModel extends CI_Model {
 					stores._idn,
 					st._description_state,
 					(SELECT COUNT(*) FROM tbapp_order_timeline WHERE _order_id = ords._order_id) as count_state,
-					(SELECT COUNT(_status) from tbapp_payments where _order_id = ords._order_id) as cstspay,
-  					(SELECT _status from tbapp_payments where _order_id = ords._order_id) as stspay
+					(SELECT COUNT(_status) from tbapp_order_payment where _order_id = ords._order_id) as cstspay,
+  					(SELECT _status from tbapp_order_payment where _order_id = ords._order_id) as stspay
 				FROM
 					tbapp_orders AS ords
 				JOIN tbapp_stores AS stores ON stores.id = ords._store_id

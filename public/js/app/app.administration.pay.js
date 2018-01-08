@@ -16,6 +16,71 @@ $(document).ready(function() {
     });
 
 
+     modalChangeState = function(o) {
+        $("#modal12").modal("open");
+        changeState(o);
+    };
+
+    $("#btChangeState").click(function(event) {
+       swal({
+            title: "Ejecutar Proceso",
+            text: "Esta seguro de realizar este proceso!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Si, Seguro",
+            closeOnConfirm: true
+        }, function() {
+            $("#loader9").empty().append(loaderCustom(50, "Cambiando Estado"));
+            $.post('change-state-pay', {
+                id: $("#_state").val(),
+                order: $("#order_id").val()
+            }, function(data, textStatus, xhr) {
+              console.log(textStatus);
+                $("#loader9").empty();
+                getPaymentMonth();
+                $("#modal12").modal("close");
+            });
+        });
+    });
+
+
+    changeState = function(o){
+        $.ajax({
+                url: 'get-state-pay',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    order: o
+                },
+                beforeSend: function() {
+                    preloader.on();
+                }
+            })
+            .done(function(response) {
+                preloader.off();
+
+                var select = '<input type="hidden" name="order_id" id="order_id" value="'+o+'"><select name="_state" id="_state" class="js-states browser-default" style="width: 100%">';
+
+                $.each(response.data, function(index, val) {
+                   select += '<option value="'+val.id+'">'+val._description_state+'</option>'
+                });
+
+                select += '</select>';
+                $(".statess").empty().append(select);
+                $('#_state').select2({
+                    placeholder: 'Seleccione Estado...'
+                });
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+    };
+
+
     getPaymentMonth = function(o) {
 
         $.getJSON('get-pay-month', {}, function(json, textStatus) {
@@ -23,6 +88,7 @@ $(document).ready(function() {
             var tb = '<table id="table-payment" class="display responsive-table datatable-exampl striped">' +
                 '<thead>' +
                 '<tr>' +
+                '<th style="text-align: center;">#</th>' +
                 '<th style="text-align: center;">ID#PAGO</th>' +
                 '<th style="text-align: center;">CLIENTE</th>' +
                 '<th style="text-align: center;">PAGO</th>' +
@@ -36,6 +102,7 @@ $(document).ready(function() {
                 '</thead>' +
                 '<tfoot>' +
                 '<tr>' +
+                '<th>ID#PAGO</th>' +
                 '<th>ID#PAGO</th>' +
                 '<th>#CLIENTE</th>' +
                 '<th>#PAGO</th>' +
@@ -57,6 +124,7 @@ $(document).ready(function() {
 
 
                 tb += '<tr>' +
+                '<td style="text-align: center;"><a href="javascript: void(0)" title="Cambiar Estado del Pago" onclick="modalChangeState(' + val._order_id + ')""><i class="material-icons">flag</i></a></td>' +
                     '<td style="width: 80px; text-align: center; border-bottom: 2px solid #cfd8dc;">' + parseInt(val.id) + '</div></td>' +
                     '<th style="text-align: center; border-bottom: 2px solid #cfd8dc;">' + val._store + '</th>' +
                     '<th style="text-align: center; border-bottom: 2px solid #cfd8dc;">' + val.paym + '</th>' +
