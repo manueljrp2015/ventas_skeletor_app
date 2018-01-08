@@ -70,16 +70,7 @@ $CI =& get_instance();
             <li><a href="<?= base_url("products/index") ?>">Crear Productos</a></li>
             <li><a href="<?= base_url("prices/prices-managment") ?>">Precios</a></li>
             <li><a href="<?= base_url("administration/pay") ?>">Pagos</a></li>
-          </ul>
-        </div>
-      </li>
-
-
-      <li class="no-padding active">
-        <a class="collapsible-header waves-effect waves-grey"><i class="material-icons">settings</i>Configuraciones<i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
-        <div class="collapsible-body">
-          <ul>
-            <li><a href="<?= base_url("settings/index") ?>">Tiendas</a></li>
+            <li><a href="<?= base_url("settings/index") ?>">Creditos</a></li>
           </ul>
         </div>
       </li>

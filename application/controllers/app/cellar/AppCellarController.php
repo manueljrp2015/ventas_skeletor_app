@@ -8,9 +8,9 @@ class AppCellarController extends CI_Controller {
 		parent::__construct();
 		$this->appoAuthModel->oauthChecked();
 		$this->load->model([
-			"app/cellar/AppCellarModel",
-			'app/catalogs/AppCatalogsModel',
-			"app/product/AppProductModel",
+			"app/cellar/appCellarModel",
+			'app/catalogs/appCatalogsModel',
+			"app/product/appProductModel",
 			"app/tnt/appTntModel"
 			]);
 	}
@@ -36,7 +36,7 @@ class AppCellarController extends CI_Controller {
 	    $data = [
 	      "folder"    => "cellar",
 	      "file"      => "cellar-picking",
-	      "listStore" => $this->AppCatalogsModel->getStoreNew(),
+	      "listStore" => $this->appCatalogsModel->getStoreNew(),
 	    ];
 
 	    $this->load->view("app/template/index_template_app", $data);
@@ -47,7 +47,7 @@ class AppCellarController extends CI_Controller {
 	    $data = [
 	      "folder"    => "cellar",
 	      "file"      => "cellar-verify",
-	      "listStore" => $this->AppCatalogsModel->getStoreNew(),
+	      "listStore" => $this->appCatalogsModel->getStoreNew(),
 	    ];
 
 	    $this->load->view("app/template/index_template_app", $data);
@@ -66,15 +66,15 @@ class AppCellarController extends CI_Controller {
 	public function deleteItemOrder(){
 
 		 $response = array(
-            "text" => json_encode( ["list" => $this->AppCellarModel->deleteItemOrder($this->input->post("id"), $this->input->post("order"))]));
+            "text" => json_encode( ["list" => $this->appCellarModel->deleteItemOrder($this->input->post("id"), $this->input->post("order"))]));
 		$this->load->view("app/response/text", $response);
 	}
 
 	public function getPurchasesForStore(){
 		$response = array(
             "text" => json_encode([
-				"list"    => $this->AppCellarModel->getPurchasesForStore(), 
-				"summary" => $this->AppCellarModel->getPurchasesSummaryForStore()
+				"list"    => $this->appCellarModel->getPurchasesForStore(), 
+				"summary" => $this->appCellarModel->getPurchasesSummaryForStore()
             	]));
 		$this->load->view("app/response/text", $response);
 	}
@@ -82,7 +82,7 @@ class AppCellarController extends CI_Controller {
 	public function getCourierOrder(){
 		$response = array(
             "text" => json_encode([
-				"data"    => $this->AppCellarModel->getCourierOrder($this->input->get())
+				"data"    => $this->appCellarModel->getCourierOrder($this->input->get())
             	]));
 		$this->load->view("app/response/text", $response);
 	}
@@ -90,7 +90,7 @@ class AppCellarController extends CI_Controller {
 	public function getItemOrder(){
 		$response = array(
             "text" => json_encode([
-				"data"    => $this->AppCellarModel->getItemOrder($this->input->get())
+				"data"    => $this->appCellarModel->getItemOrder($this->input->get())
             	]));
 		$this->load->view("app/response/text", $response);
 	}
@@ -98,7 +98,7 @@ class AppCellarController extends CI_Controller {
 	public function getTimeLine(){
 		$response = array(
             "text" => json_encode([
-				"data"    => $this->AppCellarModel->getTimeLine($this->input->get())
+				"data"    => $this->appCellarModel->getTimeLine($this->input->get())
             	]));
 		$this->load->view("app/response/text", $response);
 	}
@@ -106,7 +106,7 @@ class AppCellarController extends CI_Controller {
 	public function getComment(){
 		$response = array(
             "text" => json_encode([
-				"data"    => $this->AppCellarModel->getComment($this->input->get())
+				"data"    => $this->appCellarModel->getComment($this->input->get())
             	]));
 		$this->load->view("app/response/text", $response);
 	}
@@ -114,7 +114,7 @@ class AppCellarController extends CI_Controller {
 	public function getOrderState(){
 		$response = array(
             "text" => json_encode([
-				"data"    => $this->AppCellarModel->getOrderState($this->input->post())
+				"data"    => $this->appCellarModel->getOrderState($this->input->post())
             	]));
 		$this->load->view("app/response/text", $response);
 	}
@@ -122,7 +122,7 @@ class AppCellarController extends CI_Controller {
 	public function changeState(){
 		$response = array(
             "text" => json_encode([
-				"data"    => $this->AppCellarModel->changeState($this->input->post())
+				"data"    => $this->appCellarModel->changeState($this->input->post())
             	]));
 		$this->load->view("app/response/text", $response);
 	}
@@ -143,7 +143,7 @@ class AppCellarController extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			if (self::dataUpdate()) {
 				 $response = array(
-            		"text" => json_encode( $this->AppCellarModel->updateOrder($this->input->post())));
+            		"text" => json_encode( $this->appCellarModel->updateOrder($this->input->post())));
 				$this->load->view("app/response/text", $response);
 			} else {
 				self::errorValidation();
@@ -157,7 +157,7 @@ class AppCellarController extends CI_Controller {
 
 	public function getListProduct(){
 		 $response = array(
-            "text" => json_encode( ["list" => $this->AppProductModel->getProductList()]));
+            "text" => json_encode( ["list" => $this->appProductModel->getProductList()]));
 		$this->load->view("app/response/text", $response);
 	}
 
@@ -177,7 +177,7 @@ class AppCellarController extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			if (self::dataInclude()) {
 				 $response = array(
-            		"text" => json_encode( $this->AppCellarModel->includeProduct($this->input->post())));
+            		"text" => json_encode( $this->appCellarModel->includeProduct($this->input->post())));
 				$this->load->view("app/response/text", $response);
 			} else {
 				self::errorValidation();
@@ -229,7 +229,7 @@ class AppCellarController extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			if (self::dataCalculate()) {
 				$response = array(
-            		"text" => json_encode( $this->AppCellarModel->asignedTransportManual(
+            		"text" => json_encode( $this->appCellarModel->asignedTransportManual(
             			$this->input->post()
             		)));
 				$this->load->view("app/response/text", $response);
@@ -260,7 +260,7 @@ class AppCellarController extends CI_Controller {
 
 		
 
-		$this->AppCellarModel->saveInfoPicking($this->input->get());
+		$this->appCellarModel->saveInfoPicking($this->input->get());
 
 	    $data = [
 	      "folder"    => "picking",
@@ -274,7 +274,7 @@ class AppCellarController extends CI_Controller {
 	public function getOrderForPicking(){
 		$response = array(
             "text" => json_encode([
-				"data"    => $this->AppCellarModel->getOrderForPicking($this->input->post())
+				"data"    => $this->appCellarModel->getOrderForPicking($this->input->post())
             	]));
 		$this->load->view("app/response/text", $response);
 	}
@@ -282,8 +282,8 @@ class AppCellarController extends CI_Controller {
 	public function getItemOrderForPicking(){
 		$response = array(
             "text" => json_encode([
-				"data"    => $this->AppCellarModel->getItemOrderForPicking($this->input->get()),
-				"sumary"  => $this->AppCellarModel->getSumaryPicking($this->input->get())
+				"data"    => $this->appCellarModel->getItemOrderForPicking($this->input->get()),
+				"sumary"  => $this->appCellarModel->getSumaryPicking($this->input->get())
             	]));
 		$this->load->view("app/response/text", $response);
 	}
@@ -297,7 +297,7 @@ class AppCellarController extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			if (self::dataPicking()) {
 				$response = array(
-            		"text" => json_encode( $this->AppCellarModel->pickingOrder(
+            		"text" => json_encode( $this->appCellarModel->pickingOrder(
             			$this->input->post()
             		)));
 				$this->load->view("app/response/text", $response);
@@ -349,7 +349,7 @@ class AppCellarController extends CI_Controller {
 
 		
 
-		$this->AppCellarModel->saveInfoVerify($this->input->get());
+		$this->appCellarModel->saveInfoVerify($this->input->get());
 
 	    $data = [
 	      "folder"    => "verify",
@@ -363,7 +363,7 @@ class AppCellarController extends CI_Controller {
 	public function getOrderForVerify(){
 		$response = array(
             "text" => json_encode([
-				"data"    => $this->AppCellarModel->getOrderForVerify($this->input->post())
+				"data"    => $this->appCellarModel->getOrderForVerify($this->input->post())
             	]));
 		$this->load->view("app/response/text", $response);
 	}
@@ -371,8 +371,8 @@ class AppCellarController extends CI_Controller {
 	public function getItemOrderForVerify(){
 		$response = array(
             "text" => json_encode([
-				"data"    => $this->AppCellarModel->getItemOrderForVerify($this->input->get()),
-				"sumary"  => $this->AppCellarModel->getSumaryVerify($this->input->get())
+				"data"    => $this->appCellarModel->getItemOrderForVerify($this->input->get()),
+				"sumary"  => $this->appCellarModel->getSumaryVerify($this->input->get())
             	]));
 		$this->load->view("app/response/text", $response);
 	}
@@ -386,7 +386,7 @@ class AppCellarController extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			if (self::dataVerify()) {
 				$response = array(
-            		"text" => json_encode( $this->AppCellarModel->verifyOrder(
+            		"text" => json_encode( $this->appCellarModel->verifyOrder(
             			$this->input->post()
             		)));
 				$this->load->view("app/response/text", $response);

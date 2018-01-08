@@ -12,7 +12,7 @@ class appTransactionsController extends CI_Controller
 		parent::__construct();
 
 		$this->load->model([
-			"app/Transactions/appTransactionsModel"
+			"app/transactions/appTransactionsModel"
 			]);
 	}
 

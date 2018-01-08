@@ -17,6 +17,7 @@
 									<th>IDTienda</th>
 									<th>Tienda</th>
 									<th>Rut</th>
+									<th>Fecha/Creación</th>
 									<th>Centro/Costo</th>
 									<th>Razon Social</th>
 									<th>Acceso</th>
@@ -25,11 +26,13 @@
 							<tbody>
 								<?php
 								foreach ($listInfo as $key => $value) {
+									$date = new DateTime($value->fecha_creacion);
 								?>
 								<tr>
 									<td align="center"><a href="javascript: void(0)" onclick="addInfo(<?= $value->id_tienda ?>)"><?= sprintf("%05d",$value->id_tienda) ?></a></td>
 									<td align="right"><?= $value->nombre_tienda ?></td>
 									<td><?= $value->rut ?></td>
+									<td><?= $date->format('d-m-Y') ?></td>
 									<td><?= $value->centro_costo ?></td>
 									<td><?= $value->nombres ?></td>
 									<td> <?= $value->pw ?> </td>

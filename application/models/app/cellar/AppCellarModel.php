@@ -405,18 +405,7 @@ class AppCellarModel extends CI_Model {
 				FROM
 					tbapp_order_state
 				WHERE
-					id > (
-						SELECT
-							_order_state
-						FROM
-							tbapp_order_timeline
-						WHERE
-							_order_id = ".$data["order"]."
-						ORDER BY
-							_order_state DESC
-						LIMIT 1
-					)
-				AND id <= 9;
+					id >= 4 and id <= 9;
 			")->result();
 	}
 
@@ -451,8 +440,8 @@ class AppCellarModel extends CI_Model {
 					ords._item,
 					ords._total_cant,
 					ords._date_create,
-					CAST((select sum(_picking) as pick from tbapp_orders_line where _order_id = ords._order_id and _status_order_line = 'a')AS INT) as p,
-					CAST((select sum(_cant) as cant from tbapp_orders_line where _order_id = ords._order_id and _status_order_line = 'a' and _producto_sku <> 'TR001')AS INT) as t,
+					CAST((select sum(_picking) as pick from tbapp_orders_line where _order_id = ords._order_id and _status_order_line = 'a') AS  CHAR) as p,
+					CAST((select sum(_cant) as cant from tbapp_orders_line where _order_id = ords._order_id and _status_order_line = 'a' and _producto_sku != 'TR001') AS CHAR) as t,
 					pick._start,
 					pick._end,
 					pick._nropicking
@@ -502,9 +491,9 @@ class AppCellarModel extends CI_Model {
 	public function getSumaryPicking($data){
 		return $this->db->query("
 			SELECT
-				CAST(SUM(_cant) AS INT) AS cantidad,
-				CAST(sum(_picking) AS INT) AS pickeado,
-				CAST((SUM(_cant) - sum(_picking))AS INT) AS resto
+				CAST(SUM(_cant) AS CHAR) AS cantidad,
+				CAST(sum(_picking) AS CHAR) AS pickeado,
+				CAST((SUM(_cant) - sum(_picking)) AS CHAR) AS resto
 			FROM
 				tbapp_orders_line
 			WHERE
@@ -583,8 +572,8 @@ class AppCellarModel extends CI_Model {
 					ords._item,
 					ords._total_cant,
 					ords._date_create,
-					CAST((select sum(_confirm) as pick from tbapp_orders_line where _order_id = ords._order_id and _status_order_line = 'a')AS INT) as p,
-					CAST((select sum(_cant) as cant from tbapp_orders_line where _order_id = ords._order_id and _status_order_line = 'a' and _producto_sku <> 'TR001')AS INT) as t,
+					CAST((select sum(_confirm) as pick from tbapp_orders_line where _order_id = ords._order_id and _status_order_line = 'a') AS CHAR) as p,
+					CAST((select sum(_cant) as cant from tbapp_orders_line where _order_id = ords._order_id and _status_order_line = 'a' and _producto_sku <> 'TR001') AS CHAR) as t,
 					pick._start,
 					pick._end,
 					pick._nroverify
@@ -634,9 +623,9 @@ class AppCellarModel extends CI_Model {
 	public function getSumaryVerify($data){
 		return $this->db->query("
 			SELECT
-				CAST(SUM(_cant) AS INT) AS cantidad,
-				CAST(sum(_confirm) AS INT) AS verificado,
-				CAST((SUM(_cant) - sum(_confirm))AS INT) AS resto
+				CAST(SUM(_cant) AS CHAR) AS cantidad,
+				CAST(sum(_confirm) AS CHAR) AS verificado,
+				CAST((SUM(_cant) - sum(_confirm)) AS CHAR) AS resto
 			FROM
 				tbapp_orders_line
 			WHERE

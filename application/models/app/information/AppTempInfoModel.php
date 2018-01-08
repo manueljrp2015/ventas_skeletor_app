@@ -29,6 +29,7 @@ class appTempInfoModel extends CI_Model
 				t1.nombre_tienda,
 				t1.rut,
 				t1.centro_costo,
+				t1.fecha_creacion,
 				rt.id_usuario,
 				u.nombres,
 				u.llave,

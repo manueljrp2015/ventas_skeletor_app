@@ -10,7 +10,7 @@ class AppProductController extends CI_Controller {
 		parent::__construct();
 		$this->appoAuthModel->oauthChecked();
 		$this->load->model([
-			"app/catalogs/AppCataLogsModel",
+			"app/catalogs/AppCatalogsModel",
 			"app/product/AppProductModel"
 			]);
 	}
@@ -27,10 +27,10 @@ class AppProductController extends CI_Controller {
 	    $data = [
 			"folder"          => "product",
 			"file"            => "create-product",
-			"listLineProduct" => $this->AppCataLogsModel->getLineProduct(),
-			"groupProduct"    => $this->AppCataLogsModel->getCategoryProduct(),
-			"subgroupProduct" => $this->AppCataLogsModel->getSubCategoryProduct(),
-			"undProduct"      => $this->AppCataLogsModel->getUndProduct(),
+			"listLineProduct" => $this->AppCatalogsModel->getLineProduct(),
+			"groupProduct"    => $this->AppCatalogsModel->getCategoryProduct(),
+			"subgroupProduct" => $this->AppCatalogsModel->getSubCategoryProduct(),
+			"undProduct"      => $this->AppCatalogsModel->getUndProduct(),
 			"listProduct"      => $this->AppProductModel->getProductList(),
 	    ];
 

@@ -14,7 +14,7 @@ class appCartController extends CI_Controller
 			"app/cart/appCartModel",
 			"app/catalogs/appCatalogsModel",
 			"app/store/appStoreModel",
-			"app/Transactions/appTransactionsModel"
+			"app/transactions/appTransactionsModel"
 			]);
 	}
 
