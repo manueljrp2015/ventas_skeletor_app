@@ -116,10 +116,10 @@ $(document).ready(function() {
     };
 
     verify = function(o, s) {
-        window.open("verify?order=" + o +"&store="+s, "_blank", "toolbar=no,scrollbars=yes,resizable=no,top=0,left=0,width=auto,height=auto");
+        window.open("verify?order=" + o +"&store="+s, "_blank", "toolbar=no,scrollbars=yes,resizable=no,top=0,left=0,width=4000,height=4000");
     };
 
     checklistVerify = function(o) {
-        window.open("checklist-verify?order=" + base64_encode(o), "_blank", "toolbar=no,scrollbars=yes,resizable=no,top=0,left=0,width=auto,height=auto");
+        window.open("checklist-verify?order=" + base64_encode(o), "_blank", "toolbar=no,scrollbars=yes,resizable=no,top=0,left=0,width=4000,height=4000");
     };
 });

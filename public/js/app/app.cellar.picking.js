@@ -116,11 +116,11 @@ $(function() {
     };
 
     picking = function(o, s) {
-        window.open("picking?order=" + o +"&store="+s, "_blank", "toolbar=no,scrollbars=yes,resizable=no,top=0,left=0,width=auto,height=auto");
+        window.open("picking?order=" + o +"&store="+s, "_blank", "toolbar=no,scrollbars=yes,resizable=no,top=0,left=0,width=4000,height=4000");
     };
 
     checklistPicking = function(o) {
-        window.open("checklist-picking?order=" + base64_encode(o), "_blank", "toolbar=no,scrollbars=yes,resizable=no,top=0,left=0,width=auto,height=auto");
+        window.open("checklist-picking?order=" + base64_encode(o), "_blank", "toolbar=no,scrollbars=yes,resizable=no,top=0,left=0,width=4000,height=4000");
     };
 
     

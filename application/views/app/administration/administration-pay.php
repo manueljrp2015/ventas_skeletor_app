@@ -114,7 +114,7 @@
 											<h4>Información de Pago</h4>
 											<h3 style="color: green;" id="tlb-order"></h3>
 											<div class="row">
-												<ul class="collapsible" data-collapsible="accordion">
+												<ul class="collapsible popout" data-collapsible="accordion">
 													<li>
 														<div class="collapsible-header"><i class="material-icons">info</i>Información</div>
 														<div class="collapsible-body" id="tbinfo">

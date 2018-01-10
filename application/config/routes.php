@@ -206,6 +206,7 @@ $route['mis-compras/get-item-order']            = '/app/purchases/appPurchasesCo
 $route['mis-compras/get-timeline-order']        = '/app/purchases/appPurchasesController/getTimeLine';
 $route['mis-compras/get-comment-order']         = '/app/purchases/appPurchasesController/getComment';
 $route['mis-compras/put-comment-order']         = '/app/purchases/appPurchasesController/PutComment';
+$route['mis-compras/get-purchase-id']           = '/app/purchases/appPurchasesController/getPurchasesForId';
 
 $route['settings/index']                        = '/app/settings/appSettingsController';
 $route['settings/get-params-store']             = '/app/settings/appSettingsController/getSettingsParamStore';

@@ -33,7 +33,8 @@ class appAdministrationModel extends CI_Model {
 			LEFT JOIN tbapp_stores AS st ON st.id = pay._store_id
 			LEFT JOIN tbapp_order_state AS namestate ON namestate.id = pay._state_pay
 			WHERE
-			MONTH(pay._create_at) = ".$month." and YEAR(pay._create_at) = ".$year.";
+			MONTH(pay._create_at) = ".$month." and YEAR(pay._create_at) = ".$year."
+			order by pay._create_at desc;
 				")->result();
 	}
 
@@ -186,6 +187,10 @@ class appAdministrationModel extends CI_Model {
 			$from = $this->from($query);
 			$to = $this->to($query);
 			$queryMysql = "pay._create_at <= '".$to."' AND pay._create_at >= '".$from."' AND pay._state_pay IN (".$query["state"] .")";
+		}
+
+		elseif ($query["to"] == 0 && $query["from"] == 0 && $query["state"] != 0 && $query["store"] == 0) {
+			$queryMysql = "pay._state_pay IN (".$query["state"] .")";
 		}
 
 

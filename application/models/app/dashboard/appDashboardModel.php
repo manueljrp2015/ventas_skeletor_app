@@ -102,7 +102,7 @@ class appDashboardModel extends CI_Model
 				JOIN tbapp_stores AS st ON st.id = o._store_id
 				JOIN tbapp_order_state as s on s.id = o._order_state
 				WHERE
-					YEARWEEK(o._date_create, 1) = YEARWEEK(NOW() - INTERVAL ".$week." WEEK);
+					YEARWEEK(o._date_create) = YEARWEEK(NOW() - INTERVAL ".$week." WEEK) ORDER BY o.id desc;
 				")->result();
 		} else {
 			return $this->db->query("
@@ -115,8 +115,8 @@ class appDashboardModel extends CI_Model
 				JOIN tbapp_stores AS st ON st.id = o._store_id
 				JOIN tbapp_order_state as s on s.id = o._order_state
 				WHERE
-					YEARWEEK(o._date_create, 1) = YEARWEEK(NOW() - INTERVAL ".$week." WEEK);
-					AND o._store_id in (".$this->session->userdata("stores_new").")
+					YEARWEEK(o._date_create) = YEARWEEK(NOW() - INTERVAL ".$week." WEEK)
+					AND o._store_id in (".$this->session->userdata("stores_new").") ORDER BY o.id desc
 				")->result();
 		}
 		
@@ -132,7 +132,7 @@ class appDashboardModel extends CI_Model
 						FROM
 							tbapp_orders
 						WHERE
-							YEARWEEK(_date_create, 1) = YEARWEEK(NOW() - INTERVAL 0 WEEK)
+							YEARWEEK(_date_create) = YEARWEEK(NOW() - INTERVAL 0 WEEK)
 					) AS semana_actual,
 					(
 						SELECT
@@ -140,7 +140,7 @@ class appDashboardModel extends CI_Model
 						FROM
 							tbapp_orders
 						WHERE
-							YEARWEEK(_date_create, 1) = YEARWEEK(NOW() - INTERVAL 1 WEEK)
+							YEARWEEK(_date_create) = YEARWEEK(NOW() - INTERVAL 1 WEEK)
 					) AS semana_anterior
 				")->row();
 		} else {
@@ -154,7 +154,7 @@ class appDashboardModel extends CI_Model
 					WHERE
 				_store_id in (".$this->session->userdata("stores_new").")
 				AND
-						YEARWEEK(_date_create, 1) = YEARWEEK(NOW() - INTERVAL 0 WEEK)
+						YEARWEEK(_date_create) = YEARWEEK(NOW() - INTERVAL 0 WEEK)
 				) AS semana_actual,
 				(
 					SELECT
@@ -164,7 +164,7 @@ class appDashboardModel extends CI_Model
 					WHERE
 				_store_id in (".$this->session->userdata("stores_new").")
 				AND
-						YEARWEEK(_date_create, 1) = YEARWEEK(NOW() - INTERVAL 1 WEEK)
+						YEARWEEK(_date_create) = YEARWEEK(NOW() - INTERVAL 1 WEEK)
 				) AS semana_anterior
 
 

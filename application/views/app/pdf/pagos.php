@@ -18,6 +18,10 @@ $CI->load->model([
 		elseif ($_REQUEST["to"] != 0 && $_REQUEST["from"] != 0 && $_REQUEST["state"] != 0 && $_REQUEST["store"] == 0) {
 			$criterio = "desde: ".$_REQUEST["from"]." / hasta: ".$_REQUEST["to"].", estados: ".$_REQUEST["state"];
 		}
+		elseif ($_REQUEST["to"] == 0 && $_REQUEST["from"] == 0 && $_REQUEST["state"] != 0 && $_REQUEST["store"] == 0) {
+			$criterio = "estados: ".$_REQUEST["state"];
+		}
+
 	$pay = $CI->appAdministrationModel->queryReportBank($this->input->get());
 ?>
 <page backtop="20mm" backbottom="10mm" backleft="0mm"  backright="0mm" backimgw="350px" backimg="<?= PATH_PUBLIC_IMG."/logotamy-water.png" ?>">

@@ -70,6 +70,82 @@ $(function() {
         });
     };
 
+    getPaymentForOrdertId = function(id) {
+        $.getJSON('get-purchase-id', {
+            id: id
+        }, function(json, textStatus) {
+
+            if (json.data._bill == null) {
+                    bill = "0000";
+                } else {
+                    bill = json.data._bill;
+                }
+
+                if (json.data._office_guide == null) {
+                    office = "0000";
+                } else {
+                    office = json.data._office_guide;
+                }
+
+            var tbinfo = '<h4><table class="striped">' +
+                '<tr>' +
+                '<td>Orden:</td>' +
+                '<td>#' + json.data._order_id + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Factura:</td>' +
+                '<td>' + bill + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<tr>' +
+                '<td>Guia:</td>' +
+                '<td>' + office + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Item:</td>' +
+                '<td>' + json.data._item  + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Neto:</td>' +
+                '<td>$' + number_format(json.data._total_neto, 2, ",", ".") + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>IVA:</td>' +
+                '<td>$' + number_format(json.data._total_iva, 2, ",", ".")+ '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>total:</td>' +
+                '<td>$' + number_format(json.data._total_order, 2, ",", ".") + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Envio:</td>' +
+                '<td>$' + number_format(json.data._courier_cost, 2, ",", ".") + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Cantidad:</td>' +
+                '<td>' + json.data._total_cant + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Volumen:</td>' +
+                '<td>' + number_format(json.data._volume, 2, ",", ".") + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Peso:</td>' +
+                '<td>' + json.data._weight + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Fecha:</td>' +
+                '<td>' + moment(json.data._date_create).format("DD-MM-YYYY") + '</td>' +
+                '</tr>' +
+
+                '</table>';
+
+           
+            $("#tbinfo").empty().append(tbinfo);
+            $("#modal13").modal("open");
+        });
+    };
+
     getItemOrder = function(o) {
         preloader.on();
         $.getJSON('get-item-order', {
@@ -139,7 +215,7 @@ $(function() {
                     color = "warning";
                 }
 
-                if (count <= 2) {
+                if (count <= 1) {
                     var bt = "<a href='../mi-carrito/order-courier?order=" + val._order_id + "'>Conformar Orden</a>";
                 } else {
                     var bt = "";
@@ -229,16 +305,14 @@ $(function() {
                 '<td style="text-align: right;">TOTAL/ITEMS</td>' +
                 '<td style="text-align: right;">TOTAL/CANTIDAD</td>' +
                 '<td style="text-align: right;">COMPRAS</td>' +
-                '<td style="text-align: right;">TOTAL/VOLUMEN</td>' +
-                '<td style="text-align: right;">TOTAL/PESO</td>' +
+
                 '</tr>' +
                 '<tr>' +
                 '<td style="text-align: right; font-size: 22px; color: green;">$ ' + number_format(json.summary.totalo, 2, ",", ".") + '</td>' +
                 '<td style="text-align: right; font-size: 22px;">' + totali + '</td>' +
                 '<td style="text-align: right; font-size: 22px;">' + totalc + '</td>' +
                 '<td style="text-align: right; font-size: 22px;">' + json.summary.totalid + '</td>' +
-                '<td style="text-align: right; font-size: 22px; color: green;">' + number_format(json.summary.totalv, 2, ",", ".") + ' CM&sup3;</td>' +
-                '<td style="text-align: right; font-size: 22px;">' + totalw + '</td>' +
+
                 '</tr>' +
                 '</table>';
 
@@ -248,7 +322,8 @@ $(function() {
             tb = '<table id="table-purchases" class="display responsive-table datatable-example striped">' +
                 '<thead>' +
                 '<tr>' +
-                '<th></th>' +
+                '<th ></th>' +
+                '<th>#</th>' +
                 '<th>#</th>' +
                 '<th>#</th>' +
                 '<th>#</th>' +
@@ -258,17 +333,10 @@ $(function() {
                 '<th style="text-align: center;">PROGRESO</th>' +
                 '<th>ID</th>' +
                 '<th>ORDEN</th>' +
-                '<th>FACT</th>' +
-                '<th>GUIA</th>' +
                 '<th>CLIENTE</th>' +
                 '<th>NETO</th>' +
                 '<th>IVA</th>' +
                 '<th>TOTAL</th>' +
-                '<th>ENVIO</th>' +
-                '<th>ITEM</th>' +
-                '<th>CANT</th>' +
-                '<th>VOLUMEN</th>' +
-                '<th>PESO</th>' +
                 '<th>FECHA</th>' +
                 '</tr>' +
                 '</thead>' +
@@ -281,20 +349,14 @@ $(function() {
                 '<th>#</th>' +
                 '<th>#</th>' +
                 '<th>#</th>' +
+                 '<th>#</th>' +
                 '<th style="text-align: center;">PROGRESO</th>' +
                 '<th>ID</th>' +
                 '<th>ORDEN</th>' +
-                '<th>FACT</th>' +
-                '<th>GUIA</th>' +
                 '<th>CLIENTE</th>' +
                 '<th>NETO</th>' +
                 '<th>IVA</th>' +
                 '<th>TOTAL</th>' +
-                '<th>ENVIO</th>' +
-                '<th>ITEM</th>' +
-                '<th>CANT</th>' +
-                '<th>VOLUMEN</th>' +
-                '<th>PESO</th>' +
                 '<th>FECHA</th>' +
                 '</tr>' +
                 '</tfoot>' +
@@ -350,27 +412,22 @@ $(function() {
                 }
 
                 tb += '<tr>' +
-                    '<td style="text-align: center; background-color: ' + color + ';">' + val._description_state + '</td>' +
+                    '<td style="text-align: center; background-color: ' + color + '; width: 5%; font-size: 10px;">' + val._description_state + '</td>' +
                     '<td style="text-align: center;"><a href="invoice?o=' + base64_encode(val._order_id) + '&s=' + base64_encode(val._store_id) + '" title="Comprobante" target="_blank"><i class="material-icons">picture_as_pdf</i></a></td>' +
                     '<td style="text-align: center;"><a href="javascript: void(0)" title="Comentarios" onclick="modalComment(' + val._order_id + ',' + val.id + ')""><i class="material-icons"><i class="material-icons">comment</i></a></td>' +
                     '<td style="text-align: center;"><a href="javascript: void(0)" title="Pago de la compra" ' + activateModal + '><i class="material-icons">' + icon + '</i></a></td>' +
                     '<td style="text-align: center;"><a href="javascript: void(0)" title="Transporte de la compra" onclick="modalTransport(' + val._order_id + ',' + val.id + ')"><i class="material-icons">local_shipping</i></a></td>' +
                     '<td style="text-align: center;"><a href="javascript: void(0)" title="Detalle de la compra" onclick="getItemOrder(' + val._order_id + ')"><i class="material-icons">event_note</i></a></td>' +
                     '<td style="text-align: center;"><a href="javascript: void(0)" title="Timeline de la compra" onclick="timelineOrder(' + val._order_id + ')""><i class="material-icons">timeline</i></a></td>' +
+                    '<td style="text-align: center;"><a href="javascript: void(0)" title="información sobre el pedido" onclick="getPaymentForOrdertId(' + val.id + ')""><i class="material-icons">info</i></a></td>' +
                     '<td style="text-align: center;"><div class="c100 p' + percent + ' small ' + line + '"><span>' + percent + '%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></td>' +
+                    
                     '<td>' + val.id + '</td>' +
                     '<td>' + val._order_id + '</td>' +
-                    '<td>' + bill + '</td>' +
-                    '<td>' + office + '</td>' +
                     '<td>' + val._store + '</td>' +
-                    '<td>$ ' + number_format(val._total_neto, 2, ",", ".") + '</td>' +
-                    '<td>$ ' + number_format(val._total_iva, 2, ",", ".") + '</td>' +
-                    '<td>$ ' + number_format(val._total_order, 2, ",", ".") + '</td>' +
-                    '<td>$ ' + number_format(val._courier_cost, 2, ",", ".") + '</td>' +
-                    '<td>' + val._item + '</td>' +
-                    '<td>' + val._total_cant + '</td>' +
-                    '<td>' + number_format(val._volume, 2, ",", ".") + ' CM&sup3;</td>' +
-                    '<td>' + val._weight + '</td>' +
+                    '<td>$' + number_format(val._total_neto, 2, ",", ".") + '</td>' +
+                    '<td>$' + number_format(val._total_iva, 2, ",", ".") + '</td>' +
+                    '<td>$' + number_format(val._total_order, 2, ",", ".") + '</td>' +
                     '<td>' + moment(val._date_create).format("DD-MM-YYYY") + '</td>' +
                     '</tr>';
             });

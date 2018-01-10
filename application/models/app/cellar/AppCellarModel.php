@@ -182,8 +182,8 @@ class AppCellarModel extends CI_Model {
 					ps._discount
 				FROM
 					tbapp_orders_line AS oline
-				RIGHT JOIN tbapp_products AS p ON p.id = oline._product_id 
-				RIGHT JOIN tbapp_products_store as ps	ON ps._producto_id = oline._product_id AND ps._store_id = ".$store." 
+				LEFT JOIN tbapp_products AS p ON p.id = oline._product_id 
+				LEFT JOIN tbapp_products_store as ps ON ps._producto_id = oline._product_id AND ps._store_id = ".$store." 
 				WHERE
 					oline._order_id = ".$order."
 				AND oline._status_order_line = 'a';")->result();

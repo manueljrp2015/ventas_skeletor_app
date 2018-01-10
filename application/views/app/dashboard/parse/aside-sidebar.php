@@ -61,6 +61,9 @@ $CI =& get_instance();
         </div>
       </li>
 
+      <?php
+        if($this->session->userdata("stores_new") == "*"){
+      ?>
 
       <li class="no-padding active">
         <a class="collapsible-header waves-effect waves-grey"><i class="material-icons">settings_system_daydream</i>Administración<i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
@@ -71,6 +74,8 @@ $CI =& get_instance();
             <li><a href="<?= base_url("prices/prices-managment") ?>">Precios</a></li>
             <li><a href="<?= base_url("administration/pay") ?>">Pagos</a></li>
             <li><a href="<?= base_url("settings/index") ?>">Creditos</a></li>
+            <li><a href="<?= base_url("user-admin/user-managment") ?>">Gestión de Usuarios
+            </a></li>
           </ul>
         </div>
       </li>
@@ -139,6 +144,9 @@ $CI =& get_instance();
           </ul>
         </div>
         </li>
+        <?php
+      }
+        ?>
     </ul>
     <div class="footer">
       <p class="copyright">Tamy SPA</p>

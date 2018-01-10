@@ -60,7 +60,7 @@ $(document).ready(function() {
             window.open("pagos-print?from=" + from +
                 "&to=" + to +
                 "&state=" + state +
-                "&store=" + store, "_blank", "toolbar=no,scrollbars=yes,resizable=no,top=0,left=0,width=1024,height=auto");
+                "&store=" + store, "_blank", "toolbar=no,scrollbars=yes,resizable=no,top=0,left=0,width=4000,height=4000");
         }
     });
 

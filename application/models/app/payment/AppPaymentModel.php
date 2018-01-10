@@ -24,7 +24,8 @@ class appPaymentModel extends CI_Model
 			"_transaccion"  => $data["_transaccion"],
 			"_date_pay"     => $date->format("Y-m-d"),
 			"_rode"         => $data["_rode"],
-			"_Athachment "  => $file
+			"_Athachment "  => $file,
+			"_state_pay"    => 10
 		];
 	}
 

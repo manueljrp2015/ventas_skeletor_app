@@ -45,6 +45,14 @@ class appPurchasesController extends CI_Controller
 		$this->load->view("app/response/text", $response);
 	}
 
+	public function getPurchasesForId(){
+		$response = array(
+            "text" => json_encode([
+				"data"    => $this->appPurchasesModel->getPurchasesForId($this->input->get())
+            	]));
+		$this->load->view("app/response/text", $response);
+	}
+
 	public function getCourierOrder(){
 		$response = array(
             "text" => json_encode([

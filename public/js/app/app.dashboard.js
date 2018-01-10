@@ -1,6 +1,6 @@
 $(function() {
 
-    var getRecordMonth = function() {
+    getRecordMonth = function() {
         $.getJSON('get-analisis-store', function(json, textStatus) {
             $(".buy").empty().append(number_format(json.data.torder, 2, ",", "."));
             $(".items").empty().append(json.data.coorr);
@@ -93,6 +93,10 @@ $(function() {
                             "subCaption": "Anual",
                             "xAxisName": "Mes",
                             "yAxisName": "Compras",
+                            "exportenabled": "1",
+                            "exportatclient": "1",
+                            "exporthandler": "http://export.api3.fusioncharts.com",
+                            "html5exporthandler": "http://export.api3.fusioncharts.com",
                             "lineThickness": "5",
                             "paletteColors": "#0075c2",
                             "baseFontColor": "#333333",
@@ -137,6 +141,10 @@ $(function() {
                             "caption": "Los 10 Productos Mas Adquiridos",
                             "subCaption": "Ultimo Año",
                             "numberPrefix": "U-",
+                            "exportenabled": "1",
+                            "exportatclient": "1",
+                            "exporthandler": "http://export.api3.fusioncharts.com",
+                            "html5exporthandler": "http://export.api3.fusioncharts.com",
                             "paletteColors": "#0075c2,#1aaf5d,#f2c500,#f45b00,#8e0000",
                             "bgColor": "#ffffff",
                             "showBorder": "0",
@@ -179,6 +187,10 @@ $(function() {
                             "subCaption": "Ultimo mes",
                             "numberPrefix": "$",
                             "paletteColors": "#0075c2",
+                            "exportenabled": "1",
+                            "exportatclient": "1",
+                            "exporthandler": "http://export.api3.fusioncharts.com",
+                            "html5exporthandler": "http://export.api3.fusioncharts.com",
                             "subCaption": "Mes",
                             "xAxisName": "Semanas",
                             "yAxisName": "Compras",
@@ -232,6 +244,10 @@ $(function() {
                             "xAxisName": "Mes",
                             "yAxisName": "Compras",
                             "lineThickness": "5",
+                            "exportenabled": "1",
+                            "exportatclient": "1",
+                            "exporthandler": "http://export.api3.fusioncharts.com",
+                            "html5exporthandler": "http://export.api3.fusioncharts.com",
                             "paletteColors": "#0075c2",
                             "baseFontColor": "#333333",
                             "baseFont": "Helvetica Neue,Arial",

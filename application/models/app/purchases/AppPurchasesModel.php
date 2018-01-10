@@ -44,6 +44,23 @@ class appPurchasesModel extends CI_Model
 		}
 	}
 
+	public function getPurchasesForId($data){
+		return $this->db->query("
+				SELECT
+					ords.*, stores._store,
+					stores._idn,
+					st._description_state,
+					(SELECT COUNT(*) FROM tbapp_order_timeline WHERE _order_id = ords._order_id) as count_state,
+					(SELECT COUNT(_status) from tbapp_order_payment where _order_id = ords._order_id) as cstspay,
+  					(SELECT _status from tbapp_order_payment where _order_id = ords._order_id) as stspay
+				FROM
+					tbapp_orders AS ords
+				JOIN tbapp_stores AS stores ON stores.id = ords._store_id
+				JOIN tbapp_order_state as st on st.id = ords._order_state
+				WHERE
+					ords.id = ".$data['id'].";")->row();
+	}
+
 	public function getPurchasesSummaryForStore(){
 
 		if ($this->session->userdata("stores_new") == '*') {
