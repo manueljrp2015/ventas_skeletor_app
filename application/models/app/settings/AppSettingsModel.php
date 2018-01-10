@@ -71,11 +71,11 @@ class AppSettingsModel extends CI_Model {
 		else{
 
 			$date = new DateTime($to);
-      $to = $date->format('Y-m-d');
-      $to = date('Y-m-d', strtotime($to. ' + 1 days'));
+            $to = $date->format('Y-m-d');
+            $to = date('Y-m-d', strtotime($to. ' + 1 days'));
 
-      $date2 = new DateTime($from);
-      $from = $date->format('Y-m-d');
+            $date2 = new DateTime($from);
+            $from = $date->format('Y-m-d');
 
 			return $this->db->query(
 			"SELECT

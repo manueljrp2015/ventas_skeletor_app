@@ -15,16 +15,64 @@ $(document).ready(function() {
         placeholder: 'Seleccione Cliente...'
     });
 
+
+    $('#store_id_7').select2({
+        placeholder: 'Seleccione Cliente...'
+    });
+
+
+    $('#state').select2({
+        placeholder: 'Seleccione Cliente...'
+    });
+
+
     $("#_store_pay").change(function(event) {
         getPaymentForClient($("#_store_pay").val().toString());
     });
 
+    $("#generar").click(function(event) {
+        event.preventDefault();
 
-    modalChangeState = function(o) {
+        var from = $("#from").val();
+        var to = $("#to").val();
+        var state = $("#state").val();
+        var store = $("#store_id_7").val();
+
+        if (state == null) {
+            state = "0";
+        }
+
+        if (store == null) {
+            store = "0";
+        }
+
+        if (from == null || from == "") {
+            from = "0";
+        }
+
+        if (to == null || to == "") {
+            to = "0";
+        }
+
+        if (to == 0 && from == 0 && state == 0 && store) {
+        	swal("Error!", "No se puede generar el reporte ya que no hay criterio de consulta", "error");
+        } else {
+            window.open("pagos-print?from=" + from +
+                "&to=" + to +
+                "&state=" + state +
+                "&store=" + store, "_blank", "toolbar=no,scrollbars=yes,resizable=no,top=0,left=0,width=1024,height=auto");
+        }
+    });
+
+
+    modalChangeState = function(o, s) {
         $("#modal12").modal("open");
-        changeState(o);
+        changeState(o, s);
     };
 
+    modalPrint = function(o, s) {
+        $("#modalPrint").modal("open");
+    };
 
 
     $("#btChangeState").click(function(event) {
@@ -40,7 +88,8 @@ $(document).ready(function() {
             $("#loader9").empty().append(loaderCustom(50, "Cambiando Estado"));
             $.post('change-state-pay', {
                 id: $("#_state").val(),
-                order: $("#order_id").val()
+                order: $("#order_id").val(),
+                store: $("#store").val()
             }, function(data, textStatus, xhr) {
                 console.log(textStatus);
                 $("#loader9").empty();
@@ -51,7 +100,7 @@ $(document).ready(function() {
     });
 
 
-    changeState = function(o) {
+    changeState = function(o, s) {
         $.ajax({
                 url: 'get-state-pay',
                 type: 'POST',
@@ -66,9 +115,19 @@ $(document).ready(function() {
             .done(function(response) {
                 preloader.off();
 
-                var select = '<input type="hidden" name="order_id" id="order_id" value="' + o + '"><select name="_state" id="_state" class="js-states browser-default" style="width: 100%">';
+                if (response.data == "") {
+                    var disabled = "disabled='disabled'";
+                    $("#btChangeState").attr('disabled', 'disabled');
+                } else {
+                    var disabled = "";
+                    $("#btChangeState").removeAttr('disabled');
+                }
+
+                var select = '<input type="hidden" name="order_id" id="order_id" value="' + o + '"><input type="hidden" name="store" id="store" value="' + s + '"><select name="_state" id="_state" class="js-states browser-default" style="width: 100%" ' + disabled + '>';
+
 
                 $.each(response.data, function(index, val) {
+                    disabled
                     select += '<option value="' + val.id + '">' + val._description_state + '</option>'
                 });
 
@@ -105,34 +164,42 @@ $(document).ready(function() {
         $.getJSON('get-pay-id', {
             id: id
         }, function(json, textStatus) {
-            var tbinfo = '<table class="striped">' +
-             '<tr>' +
+            var tbinfo = '<h4><table class="striped">' +
+                '<tr>' +
+                '<td>Orden Pagada:</td>' +
+                '<td>#' + json.data._order_id + '</td>' +
+                '</tr>' +
+                '<tr>' +
                 '<td>Pago:</td>' +
-                '<td>'+json.data.paym+'</td>' +
+                '<td>' + json.data.paym + '</td>' +
                 '</tr>' +
                 '<tr>' +
                 '<tr>' +
                 '<td>Origen:</td>' +
-                '<td>'+json.data.bank_ori+'</td>' +
+                '<td>' + json.data.bank_ori + '</td>' +
                 '</tr>' +
                 '<tr>' +
-                '<td>Destino</td>' +
-                '<td>'+json.data.bank_dest+'</td>' +
+                '<td>Destino:</td>' +
+                '<td>' + json.data.bank_dest + '</td>' +
                 '</tr>' +
                 '<tr>' +
-                '<td>Transacción</td>' +
-                '<td>'+json.data._transaccion+'</td>' +
+                '<td>Transacción:</td>' +
+                '<td><input type="text" name="_transaccion" value="' + json.data._transaccion + '" style="padding-left: 5px;  border: 1px solid #BCBCBC; width: 250px; margin: 0;" disabled="disabled"></td>' +
                 '</tr>' +
                 '<tr>' +
-                '<td>Monto</td>' +
-                '<td>'+json.data._rode+'</td>' +
+                '<td>Monto:</td>' +
+                '<td><input type="text" name="_transaccion" value="' + json.data._rode + '" style="padding-left: 5px;  border: 1px solid #BCBCBC; width: 250px; margin: 0;" disabled="disabled"></td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td></td>' +
+                '<td><button type="submit" disabled="disabled" class="waves-effect waves-light btn indigo">Guardar</button></td>' +
                 '</tr>' +
                 '</table>';
 
-                var a = moment(json.data._create_at);
-                var b = moment(json.data._date_verify);
-                var c = moment(json.data._date_verify);
-                var d = moment(json.data._date_approved);
+            var a = moment(json.data._create_at);
+            var b = moment(json.data._date_verify);
+            var c = moment(json.data._date_verify);
+            var d = moment(json.data._date_approved);
 
             var tbtime = '	<table class="striped">' +
                 '<tr>' +
@@ -175,6 +242,7 @@ $(document).ready(function() {
             '<th style="text-align: center;">#</th>' +
             '<th style="text-align: center;">Estado</th>' +
             '<th style="text-align: center;">ID#PAGO</th>' +
+            '<th style="text-align: center;">ORDEN</th>' +
             '<th style="text-align: center;">CLIENTE</th>' +
             '<th style="text-align: center;">FECHA</th>' +
             '</tr>' +
@@ -185,6 +253,7 @@ $(document).ready(function() {
             '<th style="text-align: center;">#</th>' +
             '<th style="text-align: center;">Estado</th>' +
             '<th>ID#PAGO</th>' +
+            '<th>ORDEN</th>' +
             '<th>#CLIENTE</th>' +
             '<th>#FECHA</th>' +
             '</tr>' +
@@ -208,11 +277,12 @@ $(document).ready(function() {
 
             tb += '<tr>' +
                 '<td style="text-align: center;"><a href="javascript: void(0)" title="información sobre el pago" onclick="getPaymentForClientId(' + val.id + ')""><i class="material-icons">info</i></a></td>' +
-                '<td style="text-align: center;"><a href="javascript: void(0)" title="Cambiar Estado del Pago" onclick="modalChangeState(' + val._order_id + ')""><i class="material-icons">flag</i></a></td>' +
+                '<td style="text-align: center;"><a href="javascript: void(0)" title="Cambiar Estado del Pago" onclick="modalChangeState(' + val._order_id + ', ' + val._store_id + ')"><i class="material-icons">flag</i></a></td>' +
                 '<td style="text-align: center; border-bottom: 2px solid #cfd8dc; background-color: ' + color + ';">' + val._description_state + '</td>' +
                 '<td style="width: 80px; text-align: center; border-bottom: 2px solid #cfd8dc;">' + parseInt(val.id) + '</div></td>' +
+                '<td style="width: 80px; text-align: center; border-bottom: 2px solid #cfd8dc;">' + val._order_id + '</div></td>' +
                 '<th style="text-align: center; border-bottom: 2px solid #cfd8dc;">' + val._store + '</th>' +
-                '<th style="text-align: center; border-bottom: 2px solid #cfd8dc;" id="avai' + i + '">' + moment(val._create_at).format("DD-MM-YYYY h:m:s a") + '</th>' +
+                '<th style="text-align: center; border-bottom: 2px solid #cfd8dc;" id="avai' + i + '">' + moment(val._create_at).format("DD-MM-YYYY / h:m:s a") + '</th>' +
                 '</tr>';
             i++;
 

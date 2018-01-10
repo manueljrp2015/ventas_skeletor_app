@@ -93,7 +93,7 @@
 								<div class="row">
 									<div id="modal1" class="modal" style="width: :150px; height: auto;">
 										<div class="modal-content">
-											<h4>Clientes a transferir porductos</h4>
+											<h4>Clientes a transferir productos</h4>
 											<p>Cientes</p>
 											<select name="store_id_6" id="store_id_6" class="js-example-placeholder-multiple js-states form-control" style="width: 100%" multiple="multiple">
 												<?php foreach (json_decode($listStoreActive) as $key => $value):  ?>

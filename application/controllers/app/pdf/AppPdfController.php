@@ -147,4 +147,15 @@ class appPdfController extends CI_Controller
         $html2pdf->WriteHTML($this->load->view('app/pdf/checklist-verify', $dat, TRUE));
         $html2pdf->Output('CHECKLIST-VERIFY.pdf');
   }
+
+  public function reportePagos(){
+
+        $html2pdf = new Html2Pdf('L', 'LETTER', 'es', TRUE, 'UTF-8', array(5, 2, 5, 5));
+        $html2pdf->pdf->SetDisplayMode('real');
+        $dat = [
+          "data" => $this->input->get()
+        ];
+        $html2pdf->WriteHTML($this->load->view('app/pdf/pagos', $dat, TRUE));
+        $html2pdf->Output('Pagos.pdf');
+  }
 }

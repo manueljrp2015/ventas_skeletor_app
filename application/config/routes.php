@@ -250,6 +250,7 @@ $route['(:any)/reporte-credito']                = '/app/pdf/appPdfController/lis
 $route['(:any)/reporte-recargas-balance']       = '/app/pdf/appPdfController/listaReporteRecargasBalance';
 $route['(:any)/checklist-picking']              = '/app/pdf/appPdfController/checklistPickig';
 $route['(:any)/checklist-verify']               = '/app/pdf/appPdfController/checklistVerify';
+$route['(:any)/pagos-print']                          = '/app/pdf/appPdfController/reportePagos';
 
 $route['cellar/cellar-order-management']        = '/app/cellar/appCellarController';
 $route['cellar/cellar-picking']                 = '/app/cellar/appCellarController/indexCellarPicking';
