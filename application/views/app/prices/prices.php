@@ -16,7 +16,7 @@
 					<div class="row">
 						<div class="col s12">
 							<ul class="tabs tab-demo z-depth-1" style="width: 100%;">
-								<li class="tab col s3"><a href="#test4" class="active">Precios Productos</a></li>
+								<li class="tab col s3"><a href="#test4" class="active">Lista de Precios General</a></li>
 								<li class ="tab col s3"><a href="#test5">Precios clientes</a></li>
 							</ul>
 						</div>
@@ -31,7 +31,7 @@
 									<div class="modal-content">
 										<h4>Imprimir Precios</h4>
 										<p>Productos</p>
-										<select name="store_id_11" id="store_id_11" class="js-example-placeholder-multiple js-states form-control" style="width: 100%" multiple="multiple">
+										<select name="store_id_11" id="store_id_11" class="js-example-placeholder-multiple js-states form-control" style="width: 75%" multiple="multiple">
 											<option value="*">(*) Todos</option>}
 											<?php foreach ($listProduct as $key => $value):  ?>
 											<option value="<?= $value->id ?>"><?= sprintf("%05d",$value->id)." - ".$value->_product ?></option>

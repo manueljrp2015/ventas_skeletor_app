@@ -50,16 +50,26 @@ class appStoreModel extends CI_Model
 
 		return  $this->db->query("
 			SELECT
-				ln._line,
-				product.*, pr._sku,pr._product,
-				pr._available,
-				img._img,
-				img._img_thumbs
-			FROM
-				tbapp_products_store AS product
-			JOIN tbapp_products AS pr ON pr.id = product._producto_id
-			JOIN tbapp_products_img AS img ON img._product_id = pr.id
-			JOIN tbapp_products_line AS ln ON ln.id = pr._line
+					ln._line,
+					product.*, pr._sku,
+					pr._product,
+					pr._available,
+					pr._category,
+					gr._group,
+					sgr._sub_group,
+					pr._subcategory,
+					pr._und,
+					pr._min_measure,
+					pr._max_measure,
+					img._img,
+					img._img_thumbs
+				FROM
+					tbapp_products_store AS product
+				JOIN tbapp_products AS pr ON pr.id = product._producto_id
+				JOIN tbapp_products_img AS img ON img._product_id = pr.id
+				JOIN tbapp_products_line AS ln ON ln.id = pr._line
+				JOIN tbapp_products_group AS gr ON gr.id = pr._category
+				JOIN tbapp_products_groupsub AS sgr ON sgr.id = pr._subcategory
 			WHERE
 				product._store_id = '".$store."'
 			AND product._status_product = 'a'

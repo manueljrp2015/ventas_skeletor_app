@@ -168,6 +168,14 @@ class appCatalogsModel extends CI_Model
     return $this->db->get("tbapp_products_und")->result();
   }
 
+  public function getTypeStore(){
+    return $this->db->get("tbapp_store_type")->result();
+  }
+
+  public function getListPriceStore(){
+    return $this->db->get("tbapp_products_list_price")->result();
+  }
+
 }
 
  ?>

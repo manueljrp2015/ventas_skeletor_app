@@ -27,9 +27,11 @@ class AppClientController extends CI_Controller {
 	    $data = [
 			"folder"     => "client",
 			"file"       => "store-create",
-			"stores"     => $this->AppClientModel->getStores(),
+			"stores"     => $this->appClientModel->getStores(),
 			'listGiros'  => $this->appCatalogsModel->getGiros(),
 			'listPais'   => $this->appCatalogsModel->getPais(),
+			'listRegion' => $this->appCatalogsModel->getRegion(),
+			'listPriceStore' => $this->appCatalogsModel->getRegion(),
 			'listRegion' => $this->appCatalogsModel->getRegion(),
 	    ];
 
