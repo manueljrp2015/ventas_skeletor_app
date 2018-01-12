@@ -48,8 +48,10 @@ class appStoreModel extends CI_Model
 
 	public function findProductStoreAllLimit($start, $end, $store){
 
-		return  $this->db->query("
-			SELECT
+		$q_two = $this->db->get("tbapp_products_line")->result();
+		foreach ($q_two as $key1 => $value_1) {
+			$q_one =  $this->db->query("
+				SELECT
 					ln._line,
 					product.*, pr._sku,
 					pr._product,
@@ -65,15 +67,34 @@ class appStoreModel extends CI_Model
 					img._img_thumbs
 				FROM
 					tbapp_products_store AS product
-				JOIN tbapp_products AS pr ON pr.id = product._producto_id
-				JOIN tbapp_products_img AS img ON img._product_id = pr.id
-				JOIN tbapp_products_line AS ln ON ln.id = pr._line
-				JOIN tbapp_products_group AS gr ON gr.id = pr._category
-				JOIN tbapp_products_groupsub AS sgr ON sgr.id = pr._subcategory
-			WHERE
-				product._store_id = '".$store."'
-			AND product._status_product = 'a'
-			")->result();	
+					JOIN tbapp_products AS pr ON pr.id = product._producto_id
+					JOIN tbapp_products_img AS img ON img._product_id = pr.id
+					JOIN tbapp_products_line AS ln ON ln.id = pr._line
+					JOIN tbapp_products_group AS gr ON gr.id = pr._category
+					JOIN tbapp_products_groupsub AS sgr ON sgr.id = pr._subcategory
+				WHERE
+					product._store_id = ".$store."
+					AND pr._line = ".$value_1->id."
+					AND product._status_product = 'a'
+					order by pr._product asc
+					")->result();
+
+								if($q_one){
+									foreach ($q_one as $key2 => $value_2) {
+					    				$ss[$key1][$key2] = $value_2;
+					    		}
+
+								}
+								else{
+									$ss[$key1][0] = 0;
+								}
+
+    		
+    		$a[] = ["id_linea" => $value_1->id, "linea" => $value_1->_line, "images" => $value_1->_imagen, "productos" => $ss[$key1]];
+    	}
+
+    	return $a;
+    		
 	}
 
 	public function findProductAll(){
@@ -91,18 +112,54 @@ class appStoreModel extends CI_Model
 
 	public function findProductForName($query, $store){
 
-		return $this->db->query("
-			SELECT
-				ln._line AS linea,ps._price, ps._discount as discount, ps._percentage, product.*, img._img,
-				img._img_thumbs
-			FROM
-				tbapp_products AS product
-			JOIN tbapp_products_img AS img ON img._product_id = product.id
-			JOIN tbapp_products_store AS ps ON ps._producto_id = product.id AND ps._store_id = ".$store." AND ps._status_product = 'a'
-			JOIN tbapp_products_line AS ln ON ln.id = product._line
-			WHERE
-			product._product LIKE '%".$query."%'
-			")->result();
+
+		$q_two = $this->db->get("tbapp_products_line")->result();
+		foreach ($q_two as $key1 => $value_1) {
+			$q_one =  $this->db->query("
+				SELECT
+					ln._line,
+					product.*, pr._sku,
+					pr._product,
+					pr._available,
+					pr._category,
+					gr._group,
+					sgr._sub_group,
+					pr._subcategory,
+					pr._und,
+					pr._min_measure,
+					pr._max_measure,
+					img._img,
+					img._img_thumbs
+				FROM
+					tbapp_products_store AS product
+					JOIN tbapp_products AS pr ON pr.id = product._producto_id
+					JOIN tbapp_products_img AS img ON img._product_id = pr.id
+					JOIN tbapp_products_line AS ln ON ln.id = pr._line
+					JOIN tbapp_products_group AS gr ON gr.id = pr._category
+					JOIN tbapp_products_groupsub AS sgr ON sgr.id = pr._subcategory
+				WHERE
+					pr._product LIKE '%".$query."%'
+					AND product._store_id = ".$store."
+					AND pr._line = ".$value_1->id."
+					AND product._status_product = 'a'
+					order by pr._product asc
+					")->result();
+
+								if($q_one){
+									foreach ($q_one as $key2 => $value_2) {
+					    				$ss[$key1][$key2] = $value_2;
+					    		}
+
+								}
+								else{
+									$ss[$key1][0] = 0;
+								}
+
+    		
+    		$a[] = ["id_linea" => $value_1->id, "linea" => $value_1->_line, "images" => $value_1->_imagen, "productos" => $ss[$key1]];
+    	}
+
+    	return $a;
 				}
 
 	protected function dataOrdersProduct($data){

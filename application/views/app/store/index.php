@@ -10,14 +10,18 @@ $(function() {
     var obj = {};
     var n;
 
+    togg = function(ii){
+        $("#div_"+ii).slideToggle("swing", function(){
+            $("#icon"+ii).html('keyboard_arrow_down');
+        });
+    }
+
     getListProducts = function(s) {
         $("#start").val('0');
         $("#end").val('30');
         var start = $("#start").val();
         var end = $("#end").val();
-        var card = '';
-        var price;
-        var idtb = 0;
+    
         preloader.on();
         $("#listProd").empty().append(loaderCustom(55, "Buscando Productos, esto puede tardar un poco"));
         $.getJSON('get-list-product-store', {
@@ -26,138 +30,100 @@ $(function() {
             store: s
         }, function(json, textStatus) {
             preloader.off();
-            var disabled;
-            $("#listProd").empty();
-            card += '<div class="grid" >';
-            $.each(json, function(index, val) {
-
-                if(val._und == "UN"){
-                    var u_name = "UNIDAD";
-                    var u_color = "#ff6f00";
-                }
-                else if(val._und == "CJ"){
-                    var u_name = "CAJA";
-                    var u_color = "#a1887f";
-                }
-
-                card += '<div class="grid-item"><div class="col s12 m12">' +
-                    '<div class="card">' +
-                    '<div class="card-image">' +
-                    '<div class="imgLiquidFills imgLiquid" style="width:auto; height:150px; background: #fafafa">' +
-                    '<img alt="Woody" src="<?= URL_WEB?>' + val._img_thumbs + '">' +
-                    '</div> ' +
-                    '</div>' +
-                    '<div class="card-content"><div class="ribbon-wrapper"><div class="ribbon-color" style="background-color: '+u_color+';">'+u_name+'</div></div>' +
-                    '<p style="font-size: 12px;">' + val._product + '</p>';
-                if (val._discount > 0) {
-            
-                    card += '<p style="font-size: 15px; text-align: right;"> $ ' + val._discount + '  / <strong style="text-decoration:line-through; color: red;">' + val._price + ' $</strong></p>';
-                    price = val._discount;
-                } else {
-                    card += '<p style="font-size: 15px; text-align: right;"> $ ' + val._price + '</p>';
-                    price = val._price;
-                }
-
-                card +=    '<p style="text-align: left;">#: ' + i + '</p>' +                    
-                            '<p style="text-align: left;">Código: ' + val._sku + '</p>';
-
-                card += '<p style="text-align: left;">Disponible: <strong id="dp' + i + '" style="font-size: 14px; color: indigo;">' + val._available + '</strong></p>' +
-                '<p>' +
-                    '<input value="0" id="cant' + i + '" name="cant' + i + '" type="text" class="validate" style="padding: 5px; text-align: center; font-size: 16px; border: 1px solid #BCBCBC; height: 14px; width: 100px;">' +
-                    '</<p></p>' +
-                    '<p style="text-align: center;">' +
-                    '<a href="javascript: void(0)" class="waves-effect waves-light btn indigo m-b-xs" onclick=chargeCart("' + val._sku + '",' + i + ',' + val._available + ',' + price + ',' + val._producto_id + ')  ><i class="material-icons left">add_shopping_cart</i>Agregar</a>' +
-                    '</p>' +
-                    '</div>' +
-
-                    
-                    '</div>' +
-                    '</div></div>';
-
-                i++;
-
-                idtb = val.id;
-            });
-
-           card += '</div>';
-                   
-
-            $("#listProd").empty().append(card);
-            $(".imgLiquidFills").imgLiquid({
-                fill: false,
-                horizontalAlign:  'center',
-                verticalAlign: 'center'
-            });
-
-            $('.grid').masonry({
-                itemSelector: '.grid-item',
-                columnWidth: 0,
-                gutter: 1,
-                horizontalOrder: true,
-                percentPosition: true,
-            });
+            view(json);
         });
     };
-    $('pre').addClass('prettyprint');
-    prettyPrint();
-    getListProductsss = function(s) {
 
-        var start = $("#start").val();
-        var end = $("#end").val();
+
+    view = function(obj) {
         var card = '';
         var price;
         var idtb = 0;
-        $.getJSON('get-list-product-store', {
-            start: start,
-            end: end,
-            store: s
-        }, function(json, textStatus) {
-            var disabled;
-            $.each(json, function(index, val) {
-                card += '<div class="col s12 m4">' +
-                    '<div class="card">' +
-                    '<div class="card-image">' +
-                    '<div class="imgLiquidFills imgLiquid" style="width:auto; height:400px;">' +
-                    '<img alt="Woody" src="<?= URL_WEB?>' + val._img_thumbs + '">' +
-                    '</div> ' +
-                    '</div>' +
-                    '<div class="card-content">' +
-                    '<p style="font-size: 16px;">' + val._product + '</p>';
-                if (val._discount > 0) {
-                    
-                    card += '<p style="font-size: 20px; text-align: right;">$ ' + val._discount + ' / <strong style="text-decoration:line-through; color: red;">$ ' + val._price + ' </strong></p>';
-                    price = val._discount;
-                } else {
-                    card += '<p style="font-size: 20px; text-align: right;">$ ' + val._price + ' </p>';
-                    price = val._price;
-                }
+        var disabled;
+        $("#listProd").empty();
+        var ii = 1;
+        $.each(obj, function(index, val) {
 
-                card +=    '<p>#: ' + i + '</p>' +                    
-                            '<p>Código: ' + val._sku + '</p>';
+            if (val.productos == 0) {
+                console.log('vacio');
+                console.log(val.productos.length);
+            } else {
 
-                card += '<p>Disponible: <strong id="dp' + i + '" style="font-size: 17px; color: indigo;">' + val._available + '</strong></p>' +
-                    '</div>' +
-                    '<div class="card-action">' +
-                    '<div class="row">' +
-                    '<div class="input-field col s5">' +
-                    '<input value="0" id="cant' + i + '" name="cant' + i + '" style="padding: 5px; text-align: right; font-size: 22px; border: 1px solid #BCBCBC; " type="text" class="validate">' +
-                    '</div>' +
-                    '</div>' +
-                    '<a href="javascript: void(0)" class="waves-effect waves-light btn m-b-xs" onclick=chargeCart("' + val._sku + '",' + i + ',' + val._available + ',' + price + ',' + val._product_id + ')  >Agregar al Carrito</a>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
-                i++;
-                idtb = val.id;
-            });
-            $("#listProd").empty().append(card);
-            $(".imgLiquidFills").imgLiquid({
-               fill: false,
-                horizontalAlign:  'center',
-                verticalAlign: 'center'
-            });
+
+
+                card += '<span class="black-text"><div class="row"><img src="..' + val.images + '" style="width: 75px;""><p class="flow-text">' + val.linea + '</p><a href="javascript: void(0)" onclick="togg(' + ii + ','+this.element+')"><i class="material-icons" id="icon'+ii+'">keyboard_arrow_up</i></a>';
+                card += '<div class="grid" id="div_' + ii + '">';
+
+                $.each(val.productos, function(index, val) {
+
+                    if (val._und == "UN") {
+                        var u_name = "UNIDAD";
+                        var u_color = "#ff6f00";
+                        var max_measure = "Caja: " + val._max_measure + " Unidades";
+                    } else if (val._und == "CJ") {
+                        var u_name = "CAJA";
+                        var u_color = "#a1887f";
+                        var max_measure = "Disponible en unidad";
+                    }
+
+                    card += '<div class="grid-item"><div class="col s12 m12">' +
+                        '<div class="card">' +
+                        '<div class="card-image">' +
+                        '<div class="imgLiquidFills imgLiquid" style="width:auto; height:150px; background: #fafafa">' +
+                        '<img alt="Woody" src="<?= URL_WEB?>' + val._img_thumbs + '">' +
+                        '</div> ' +
+                        '</div>' +
+                        '<div class="card-content"><div class="ribbon-wrapper"><div class="ribbon-color" style="background-color: ' + u_color + ';">' + u_name + '</div></div>' +
+                        '<p style="font-size: 12px;">' + val._product + '</p>';
+                    if (val._discount > 0) {
+
+                        card += '<p style="font-size: 15px; text-align: right;"> $ ' + val._discount + '  / <strong style="text-decoration:line-through; color: red;">' + val._price + ' $</strong></p>';
+                        price = val._discount;
+                    } else {
+                        card += '<p style="font-size: 15px; text-align: right; color: #e65100;"> $ ' + val._price + '</p>';
+                        price = val._price;
+                    }
+
+                    card += '<p style="text-align: left;">#' + val._sku + '</p>';
+                    card += '<p style="text-align: left;">Disponible: <strong id="dp' + i + '" style="font-size: 14px; color: indigo;">' + val._available + '</strong></p>';
+                    card += '<p style="text-align: left;">' + max_measure + '</p>';
+                    card += '<p>' +
+                        '<input value="0" id="cant' + i + '" name="cant' + i + '" type="text" class="validate" style="padding: 5px; text-align: center; font-size: 16px; border: 1px solid #BCBCBC; height: 14px; width: 100px;">' +
+                        '</<p></p>' +
+                        '<p style="text-align: center;">' +
+                        '<a href="javascript: void(0)" class="waves-effect waves-light btn indigo m-b-xs" onclick=chargeCart("' + val._sku + '",' + i + ',' + val._available + ',' + price + ',' + val._producto_id + ')  ><i class="material-icons left">add_shopping_cart</i>Agregar</a>' +
+                        '</p>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div></div>';
+                    i++;
+                    idtb = val.id;
+                });
+            }
+            card += '</div></div>';
+            ii++;
+        });
+
+        $("#listProd").empty().append(card);
+
+        $(".imgLiquidFills").imgLiquid({
+            fill: false,
+            horizontalAlign: 'center',
+            verticalAlign: 'center'
+        });
+
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: 0,
+            gutter: 1,
+            horizontalOrder: true,
+            percentPosition: true,
         });
     };
+
+    $('pre').addClass('prettyprint');
+    prettyPrint();
+    
     $('input.autocomplete').autocomplete({
         data: {
             <?php
@@ -183,8 +149,7 @@ $(function() {
     findProductName = function(q) {
         var start = $("#start").val();
         var end = $("#end").val();
-        var card = '';
-        var price;
+
         $.ajax({
                 url: 'find-product-for-name',
                 type: 'GET',
@@ -194,54 +159,11 @@ $(function() {
                     store: $("#store_id_5").val()
                 },
                 beforeSend: function(){
-                    $("#loader1").empty().append(loaderCustom(55, "Buscando Productos, esto puede tardar un poco"));
+                    $("#listProd").empty().append(loaderCustom(55, "Buscando Productos, esto puede tardar un poco"));
                 }
             })
             .done(function(json) {
-                $("#loader1").empty();
-                $.each(json, function(index, val) {
-                    card += '<div class="col s12 m4">' +
-                        '<div class="card">' +
-                        '<div class="card-image">' +
-                        '<div class="imgLiquidFills imgLiquid" style="width:auto; height:400px;">' +
-                        '<img alt="Woody" src="<?= URL_WEB?>' + val._img_thumbs + '">' +
-                        '</div> ' +
-                        '</div>' +
-                        '<div class="card-content">' +
-              
-                        '<p style="font-size: 16px;">' + val._product + '</p>';
-                    if (val.discount > 0) {
-                        card += '<p style="font-size: 20px; text-align: right;">$ ' + val.discount + '  / <strong style="text-decoration:line-through; color: red;">$ ' + val._price + '</strong></p>';
-                        price = val.discount;
-                    } else {
-                        card += '<p style="font-size: 20px; text-align: right;">$ ' + val._price + '</p>';
-                        price = val._price;
-                    }
-
-                    card +=    '<p>#: ' + i + '</p>' +                    
-                            '<p>Código: ' + val._sku + '</p>';
-
-                    card += '<p>Disponible: <strong id="dp' + i + '" style="font-size: 17px; color: indigo;">' + val._available + '</strong></p>' +
-                    '<p>LINEA: ' + val.linea + '</p>' +
-                        '</div>' +
-                        '<div class="card-action">' +
-                        '<div class="row">' +
-                        '<div class="input-field col s5">' +
-                        '<input value="0" id="cant' + i + '" name="cant' + i + '" style="padding: 5px; text-align: right; font-size: 22px; border: 1px solid #BCBCBC; " type="text" class="validate">' +
-                        '</div>' +
-                        '</div>' +
-                        '<a href="javascript: void(0)" class="waves-effect waves-light btn m-b-xs" onclick=chargeCart("' + val._sku + '",' + i + ',' + val._available + ',' + price + ',' + val.id + ')  >Agregar al Carrito</a>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>';
-                    i++;
-                });
-                $("#listProd").empty().append(card);
-                $(".imgLiquidFills").imgLiquid({
-                    fill: false,
-                    horizontalAlign:  'center',
-                    verticalAlign: 'center'
-                });
+                view(json);
             })
             .fail(function() {
                 console.log("error");
@@ -301,6 +223,20 @@ $(function() {
                             <a href="javascript: void(0)" id="search" class="waves-effect waves-light"><i class="material-icons">search</i></a>
                         </div>
                     </div>
+                     <div class="row s12 m12 l12">
+                         <div class="col s12 m12 l2">
+                            <select name="_line" id="_line" class="js-states browser-default" style="width: 100%; padding-top: 50px;">
+                                <option value="" disabled="" selected=""> </option>
+                                <option value="1">FINI</option>
+                                <option value="3">LA CASA</option>
+                                <option value="2">FRIT</option>
+                                <option value="4">OTROS</option>
+                             
+                            </select>
+                            <span class="text-darken-2" style="color: #b71c1c">Seleccione una linea</span>
+                            <div id="loader9"></div>
+                        </div>
+                     </div>
                     <div class="row">
                         <div id="loader1" ></div>
                         <div id="listProd" style="text-align: center;">
