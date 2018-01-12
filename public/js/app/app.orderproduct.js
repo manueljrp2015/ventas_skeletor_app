@@ -12,9 +12,7 @@ $(function() {
 
     $('#_line').change(function(event) {
 
-       var i = $('#_line').val();
-       var ii = parseInt($('#_line').val()) + 1;
-      $(".ss").randomize();
+
     });
 
     chargeCart = function(sku, i, a, p, idp) {

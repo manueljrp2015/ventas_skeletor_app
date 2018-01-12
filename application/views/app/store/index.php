@@ -70,12 +70,14 @@ $(function() {
                         '<div class="card">' +
                         '<div class="card-image">' +
                         '<div class="imgLiquidFills imgLiquid" style="width:auto; height:150px; background: #fafafa">' +
-                        '<img alt="Woody" src="<?= URL_WEB?>' + val._img_thumbs + '">' +
+                        '<img class="materialboxed responsive-img" alt="Woody" src="<?= URL_WEB?>' + val._img_thumbs + '">' +
                         '</div> ' +
                         '</div>' +
-                        '<div class="card-content"><div class="ribbon-wrapper"><div class="ribbon-color" style="background-color: ' + u_color + ';">' + u_name + '</div></div>' +
-                        '<p style="font-size: 12px;">' + val._product + '</p>';
-                    if (val._discount > 0) {
+                        '<div class="card-content"><div class="ribbon-wrapper"><div class="ribbon-color" style="background-color: ' + u_color + ';">' + u_name + '</div></div>';
+                     card +=  '<p style="font-size: 9px; text-align: left; color: #e65100;">' + val._group + ' > '+ val._sub_group +'</p>';
+
+                     card +=  '<p style="font-size: 12px;">' + val._product + '</p>';
+                    if (val._discount > 0) { 
 
                         card += '<p style="font-size: 15px; text-align: right;"> $ ' + val._discount + '  / <strong style="text-decoration:line-through; color: red;">' + val._price + ' $</strong></p>';
                         price = val._discount;
@@ -84,9 +86,9 @@ $(function() {
                         price = val._price;
                     }
 
-                    card += '<p style="text-align: left;">#' + val._sku + '</p>';
-                    card += '<p style="text-align: left;">Disponible: <strong id="dp' + i + '" style="font-size: 14px; color: indigo;">' + val._available + '</strong></p>';
-                    card += '<p style="text-align: left;">' + max_measure + '</p>';
+                    card += '<p style="text-align: left; font-size: 12px;">#' + val._sku + '</p>';
+                    card += '<p style="text-align: left; font-size: 12px;">Disponible: <strong id="dp' + i + '" style=" color: indigo;">' + val._available + '</strong></p>';
+                    card += '<p style="text-align: left; font-size: 12px;">' + max_measure + '</p>';
                     card += '<p>' +
                         '<input value="0" id="cant' + i + '" name="cant' + i + '" type="text" class="validate" style="padding: 5px; text-align: center; font-size: 16px; border: 1px solid #BCBCBC; height: 14px; width: 100px;">' +
                         '</<p></p>' +
