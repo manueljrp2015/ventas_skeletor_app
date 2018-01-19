@@ -11,7 +11,7 @@
                 <li><a href="javascript:void(0)" class="card-refresh" onclick="getRecordMonth()"><i class="material-icons left">refresh</i></a></li>
               </ul>
             </div>
-            <span class="card-title">Compras</span>
+            <span class="card-title">Pedidos</span>
             <span class="stats-counter"><span class="counter"><?= date("W") ?></span><small>Semana Activa</small></span>
           </div>
           
@@ -49,7 +49,7 @@
             <div class="card-options">
               
             </div>
-            <span class="card-title">Compras este mes</span>
+            <span class="card-title">Pedidos este mes</span>
             <span class="stats-counter"><span class="counter items">0</span><small></small></span>
           </div>
           
@@ -97,7 +97,7 @@
                 
               </ul>
             </div>
-            <span class="card-title">Ventas este año<span class="secondary-title">Desglose de ventas por mes</span></span>
+            <span class="card-title">Pedidos este año<span class="secondary-title">Desglose de pedidos por mes</span></span>
             <div id="chart-container"></div>
           </div>
         </div>
@@ -135,7 +135,7 @@
             <div class="server-load row">
               <div class="server-stat col s4">
                 <p id="c">0</p>
-                <span>Compras</span>
+                <span>Pedidos</span>
               </div>
               <div class="server-stat col s4">
                 <p id="p">0</p>
@@ -151,9 +151,9 @@
                 
               </ul>
             </div>
-            <p>Compras Semanas Mes Actual</p>
+            <p>Pedidos Semanas Mes Actual</p>
             <div id="chart-week"></div>
-            <p>Compras este mes</p>
+            <p>Pedidos este mes</p>
             <div id="flotchart2"></div>
           </div>
         </div>
@@ -166,7 +166,7 @@
                 
               </ul>
             </div>
-            <span class="card-title">Top Ventas</span>
+            <span class="card-title">Top Pedidos</span>
             
             <div class="stats-info">
               <ul class="rank">

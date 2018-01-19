@@ -13,6 +13,7 @@
 					<div class="row">
 						<div class="col s12">
 							<ul class="tabs tab-demo z-depth-1" style="width: 100%;">
+								<li class="tab col s3"><a href="#test5">Pedidos</a></li>
 								<li class="tab col s3"><a href="#test4">Listado de Pagos</a></li>
 							</ul>
 						</div>
@@ -31,7 +32,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<a href="javascript: void(0)" class="btn indigo darken-3" onclick="getPaymentMonth()"> <i class="material-icons left">refresh</i> Refrescar</a>
+									<a href="javascript: void(0)" class="btn indigo darken-3" onclick="getPaymentMonth()" style='pointer-events: none; cursor: default;'> <i class="material-icons left">refresh</i> Refrescar</a>
 									<a href="javascript: void(0)" class="btn indigo darken-3" onclick="modalPrint()"> <i class="material-icons left">print</i> Imprimir Listados</a>
 								</div>
 								<div class="row">
@@ -144,12 +145,113 @@
 										<div id="tbpay" style="text-align: center;"></div>
 									</div>
 								</div>
+								
 							</p>
 						</div>
+						<div id="test5" class="col s12">
+							<p class="p-v-sm">
+						
+								<div class="row">
+									<div class="col s12 m6 l12" style="overflow-x: auto; white-space: nowrap;" id="tbpays">
+										
+									</div>
+								</div>
+								<div class="row">
+									<div id="modal5" class="modal modal-fixed-footer" style="width: 2048px;">
+										<div class="modal-content">
+											<h3>Pago</h3>
+											<h3 style="color: green;" id="paylb-order"></h3>
+											<br>
+											<form id="fmfile" class="p-v-xs" enctype="multipart/form-data" method="post">
+												<div class="row">
+													<div class="input-field col s4">
+														<select  id="_tipo_pago" name="_tipo_pago">
+															<option value=""></option>
+															<?php
+															foreach ($typePayment as $key => $value) {
+															?>
+															<option value="<?= $value->id ?>"><?= $value->_type_payment ?></option>
+															<?php } ?>
+														</select>
+														<label for="mask1" class="active">Tipo de Pago</label>
+													</div>
+													<div class="input-field col s4">
+														
+														<select  id="_banco_o" name="_banco_o">
+															<option value=""></option>
+															<?php
+															foreach ($bank as $key => $value) {
+															?>
+															<option value="<?= $value->id ?>"><?= $value->_bank ?></option>
+															<?php } ?>
+														</select>
+														<label for="mask1" class="active">Banco de Origen</label>
+													</div>
+													<div class="input-field col s4">
+														<select  id="_banco_d" name="_banco_d">
+															<option value=""></option>
+															<?php
+															foreach ($bank as $key => $value) {
+															if($value->id != 13){}
+															else{
+															?>
+															<option value="<?= $value->id ?>"><?= $value->_bank ?></option>
+															<?php }} ?>
+														</select>
+														<label for="mask1" class="active">Banco de Destino</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="input-field col s4">
+														<input placeholder="" id="_transaccion" name="_transaccion" class="masked" type="text" style="font-size: 24px; text-align: right;">
+														<input placeholder="" id="_store_id" name="_store_id"  type="hidden" style="font-size: 24px; text-align: right;">
+														<label for="mask1" class="active">Transacción / Nro. Cheque</label>
+													</div>
+													<div class="input-field col s4">
+														<input placeholder="" id="_order_id" name="_order_id" class="masked" type="hidden">
+														<input placeholder="" id="_datep" name="_datep" class="datepicker picker__input" type="text"  style="font-size: 24px; text-align: right;">
+														<label for="mask1" class="active">Fecha de Pago</label>
+													</div>
+													<div class="input-field col s4">
+														<input placeholder="" id="_rode" name="_rode" class="masked" type="text" style="font-size: 24px; text-align: right;">
+														<label for="mask1" class="active">Monto</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="file-field input-field col s12 m6 l8">
+														<div class="btn teal lighten-1">
+															<span>Soporte</span>
+															<input type="file" accept="image/*, application/pdf" name="file" id="file" onchange="onLoadFile(event)">
+														</div>
+														<div class="file-path-wrapper">
+															<input class="file-path validate valid" type="text">
+														</div>
+													</div>
+													<div class="file-field input-field col s12 m6 l4">
+														<button id="upload-button" type="submit" onclick="return false;" class="btn btn-small waves-effect waves-light teal lighten-2">
+														<i class="material-icons left">file_upload</i> Guardar</button>
+													</div>
+													<div id="info-file"></div>
+													<div id="loader10">
+														<div id="porcent"></div>
+														<div class="progress"><div class="determinate" style="width: 0%" id="process"></div></div>
+													</div>
+													
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </main>
 <script src="<?= PATH_PUBLIC_JS.'/app/app.administration.pay.js' ?>"></script>

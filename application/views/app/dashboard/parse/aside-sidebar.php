@@ -23,7 +23,7 @@ $CI =& get_instance();
       </ul>
     </div>
     <ul class="sidebar-menu collapsible collapsible-accordion" data-collapsible="accordion">
-      <li class="no-padding"><a class="waves-effect waves-grey" href="<?= base_url("dashboard/welcome") ?>"><i class="material-icons">settings_input_svideo</i>Dashboard</a></li>
+      <li class="no-padding"><a class="waves-effect waves-grey" href="<?= base_url("dashboard/welcome") ?>"><i class="material-icons">settings_input_svideo</i>Escritorio</a></li>
 
       <li class="no-padding active">
         <a class="collapsible-header waves-effect waves-grey"><i class="material-icons">store</i>Tienda<i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
@@ -44,10 +44,10 @@ $CI =& get_instance();
       </li>
 
       <li class="no-padding active">
-        <a class="collapsible-header waves-effect waves-grey"><i class="material-icons">shopping_basket</i>Compras<i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
+        <a class="collapsible-header waves-effect waves-grey"><i class="material-icons">shopping_basket</i>Pedidos<i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
         <div class="collapsible-body">
           <ul>
-            <li><a href="<?= base_url("mis-compras/purchases") ?>">Mis Compras</a></li>
+            <li><a href="<?= base_url("mis-compras/purchases") ?>">Mis Pedidos</a></li>
           </ul>
         </div>
       </li>

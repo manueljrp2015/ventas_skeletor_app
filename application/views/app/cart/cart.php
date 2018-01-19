@@ -7,6 +7,7 @@
           <div class="row s12 m12 l12">
             <div class="input-field col s12 m6 l12">
               <h5>Consulta el carrito de compra de tu cliente o tienda asociada a su cuenta.</h5>
+              <strong>Aqui se mostrara el resumen de los pedidos que has realizados en la tienda seleccionada y que estan a espera de confirmación.</strong>
             </div>
             <div class="input-field col s12 m6 l4">
               <select name="store_id_5" id="store_id_5" class="js-states browser-default" style="width: 100%">
@@ -18,7 +19,7 @@
               <div id="loader9"></div>
             </div>
             <div class="input-field col s12 m6 l2">
-              <a href="javascript: void(0)" id="search" class="waves-effect waves-light btn"><i class="material-icons">search</i></a>
+              <a href="javascript: void(0)" id="search" class="waves-effect waves-light btn indigo"><i class="material-icons left">search</i> Buscar</a>
             </div>
             <div class="input-field col s12 m6 l12" id="cart-list">
            <?php 
@@ -57,7 +58,7 @@
                   preloader.off();
 
                   tb += '<h6>Pedido No Culminado de tienda Nro. ' + q + '</h6>' +
-                      '<table class="responsive-table striped">' +
+                      /*'<table class="responsive-table striped">' +
                       '<thead>' +
                       '<tr>' +
                       '<th style="text-align: right;">Credito</th>' +
@@ -71,21 +72,18 @@
                       '<td style="text-align: right; font-size: 20px; color: red;">' + number_format(json.paycond._consumption, 2, ",", ".") + '</td>' +
                       '<td style="text-align: right; font-size: 20px; color: green;">' + number_format(json.paycond._balance, 2, ",", ".") + '</td>' +
                       '</tr>' +
-                      '</tbody>' +
+                      '</tbody>' +*/
                       '</table><hr><br>' +
-                      '<table id="table-warehouse" class="display responsive-table datatable-example striped">' +
+                      '<table class="display responsive-table striped" style="font-size: 12px;">' +
                       '<thead>' +
                       '<tr>' +
-                      '<th>#</th>' +
-                      '<th>ID#PRO</th>' +
-                      '<th>SKU</th>' +
-                      '<th>PRODUCTO</th>' +
+                      '<th style="text-align: center;">Eliminar</th>' +
+                      '<th style="text-align: center;">SKU</th>' +
+                      '<th style="text-align: center;">PRODUCTO</th>' +
                       '<th style="text-align: center;">CANTIDAD</th>' +
-                      '<th style="text-align: right;">DISP.</th>' +
-                      '<th style="text-align: right;">VOLUMEN (Cm3).</th>' +
-                      '<th style="text-align: right; width: 10%;">PESO.</th>' +
+                      '<th style="text-align: CENTER;">DISP.</th>' +
                       '<th style="text-align: right;">COSTO</th>' +
-                      '<th>#</th>' +
+                      '<th style="text-align: center;">Ajustar Carrito</th>' +
                       '</tr>' +
                       '</thead>' +
                       '<tbody>';
@@ -105,16 +103,13 @@
                       wei = parseInt(val._cant) * parseFloat(val._weight);
 
                       tb += '<tr>' +
-                          '<td style="text-align: center"><a href="javascript: void(0)" onclick=deleteItem(' + val.id + ')><i class="material-icons small">delete_forever</i></a></td>' +
-                          '<td style="text-align: center">' + val._product_id + '</td>' +
-                          '<td>' + val._producto_sku + '</td>' +
+                          '<td style="text-align: center"><a href="javascript: void(0)" class="btn indigo" onclick=deleteItem(' + val.id + ')>Eliminar</a></td>' +
+                          '<td style="text-align: center;">' + val._producto_sku + '</td>' +
                           '<td>' + val._product + '</td>' +
-                          '<td style="width: 150px;"><div class="input-field col s12 m6 l12"><input style="text-align: center" type="number" name="cant" id="cant' + i + '" min="1" max="' + parseInt(val._available) + '" value=' + parseInt(val._cant) + '></div></td>' +
-                          '<td>' + parseInt(val._available) + '</td>' +
-                          '<td style="text-align: right;" id="vol' + i + '" >' + number_format(vol, 2, ",", ".") + '</td>' +
-                          '<td style="text-align: right;">' + Math.round(wei * 100) / 100 + '</td>' +
+                          '<td style="width: 150px;"><input style="text-align: center" type="number" name="cant" id="cant' + i + '" min="1" max="' + parseInt(val._available) + '" value=' + parseInt(val._cant) + ' style="margin: 0;"></td>' +
+                          '<td style="text-align: center;">' + parseInt(val._available) + '</td>' +
                           '<td style="text-align: right;">' + number_format(val._rode, 2, ",", ".") + '</td>' +
-                          '<td><a href="javascript: void(0)"><i class="material-icons" onclick="updateOrder(' + i + ',' + val._product_id + ',' + val.id + ')">system_update_alt</i></a></td>' +
+                          '<td style="text-align: center;"><a href="javascript: void(0)"  class="btn orange darken-4" onclick="updateOrder(' + i + ',' + val._product_id + ',' + val.id + ')"> Ajustar</a></td>' +
                           '</tr>';
 
                       i++;
@@ -134,7 +129,7 @@
                       var txt = "disabled='disabled'";
                   }
 
-                  tb += '<tr><td></td><td></td><td></td><td></td><td style="text-align: center; font-size: 16px; color: green;">' + tc + '</td><td></td><td style="text-align: right; font-size: 16px; color: green;" id="total_volumen">' + parseFloat(tv) + '</td><td style="text-align: right; font-size: 16px; color: green;" id="total_peso">' + parseFloat(Math.round(tp * 100) / 100) + '</td><td style="text-align: right; font-size: 16px; color: green;"></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td style="text-align: center; font-size: 16px; color: green;"></td><td style="text-align: right; font-size: 16px; color: green;"></td><td style="text-align: right; font-size: 16px;">Total</td><td style="text-align: right; font-size: 16px;">' + number_format(tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;">Credito</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;">Balance</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance - tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;"><button id="process" class="waves-effect waves-light btn orange m-b-xs" ' + txt + '>Confirmar Pedido</button></td><td></td></tr></tbody></table>';
+                  tb += '<tr><td></td><td></td><td style="text-align: right; font-size: 16px; color: green;" id="total_volumen"></td><td style="text-align: center; font-size: 16px; color: green;">' + tc + '</td><td style="text-align: right; font-size: 16px; color: green;" id="total_peso"></td><td style="text-align: right; font-size: 16px; color: green;"></td><td></td></tr><tr><td></td><td></td><td style="text-align: center; font-size: 16px; color: green;"></td><td style="text-align: right; font-size: 16px; color: green;"></td><td style="text-align: right; font-size: 16px;">Total</td><td style="text-align: right; font-size: 16px;">' + number_format(tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;">Credito</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;">Balance</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance - tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;"></td><td><button id="process" class="waves-effect waves-light btn orange m-b-xs" ' + txt + '>Confirmar Pedido</button></td></tr></tbody></table>';
 
                   $("#cart-list").empty().append(tb);
               }

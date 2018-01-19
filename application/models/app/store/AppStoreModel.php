@@ -160,7 +160,63 @@ class appStoreModel extends CI_Model
     	}
 
     	return $a;
-				}
+	}
+
+	public function findProductForLine($data){
+
+		$concat =  ($data["query"] != null && $data["query"] != "*") ? " AND pr._line = ".$data["query"] : " ";
+		$concat .=  ($data["cat"] != null && $data["cat"] != "*") ? " AND pr._category=".$data["cat"] : " ";
+		$concat .=  ($data["subcat"] != null && $data["subcat"] != "*") ? " AND pr._subcategory=".$data["subcat"] : " ";
+
+		$q_two = $this->db->where(["id" => $data["query"]])->get("tbapp_products_line")->result();
+		foreach ($q_two as $key1 => $value_1) {
+
+			
+			$q_one =  $this->db->query("
+				SELECT
+					ln._line,
+					product.*, pr._sku,
+					pr._product,
+					pr._available,
+					pr._category,
+					gr._group,
+					sgr._sub_group,
+					pr._subcategory,
+					pr._und,
+					pr._min_measure,
+					pr._max_measure,
+					img._img,
+					img._img_thumbs
+				FROM
+					tbapp_products_store AS product
+					JOIN tbapp_products AS pr ON pr.id = product._producto_id
+					JOIN tbapp_products_img AS img ON img._product_id = pr.id
+					JOIN tbapp_products_line AS ln ON ln.id = pr._line
+					JOIN tbapp_products_group AS gr ON gr.id = pr._category
+					JOIN tbapp_products_groupsub AS sgr ON sgr.id = pr._subcategory
+				WHERE
+					product._store_id = ".$data["store"]."
+					".$concat."
+					AND product._status_product = 'a'
+					order by pr._product asc
+					")->result();
+
+								if($q_one){
+									foreach ($q_one as $key2 => $value_2) {
+					    				$ss[$key1][$key2] = $value_2;
+					    		}
+
+								}
+								else{
+									$ss[$key1][0] = 0;
+								}
+
+    		
+    		$a[] = ["id_linea" => $value_1->id, "linea" => $value_1->_line, "images" => $value_1->_imagen, "productos" => $ss[$key1]];
+    	}
+
+    	return $a;
+	}
 
 	protected function dataOrdersProduct($data){
 		return [

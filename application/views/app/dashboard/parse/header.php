@@ -11,7 +11,7 @@
         <meta name="keywords" content="admin,dashboard" />
         <meta name="author" content="Steelcoders" />
 
-        <link type="text/css" rel="stylesheet" href="<?= PATH_PUBLIC_PLUGINS."/materialize/css/materialize.min.css" ?>"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="<?= PATH_PUBLIC_PLUGINS."/material-preloader/css/materialPreloader.min.css" ?>" rel="stylesheet">
         <link href="<?= PATH_PUBLIC_PLUGINS."/sweetalert/sweetalert.css" ?>" rel="stylesheet">
@@ -33,5 +33,5 @@
         <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <script src="<?= PATH_PUBLIC_PLUGINS."/jquery/jquery-2.2.0.min.js" ?>"></script>
-        <script src="<?= PATH_PUBLIC_PLUGINS."/materialize/js/materialize.min.js" ?>"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     </head>

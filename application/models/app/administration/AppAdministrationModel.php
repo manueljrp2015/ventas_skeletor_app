@@ -225,6 +225,32 @@ class appAdministrationModel extends CI_Model {
         return $from = $date2->format('Y-m-d');
 	}
 
+	protected function dataPay($file, $data){
+
+		$date = new DateTime($data["_date_pay"]);
+
+		return [
+			"_order_id "    => $data["_order_id"],
+			"_type_payment" => $data["_tipepay"],
+			"_store_id"     => $data["_store_id"],
+			"_bank_origyn"  => $data["_bank_origin"],
+			"_bank_destiny" => $data["_bank_destiny"],
+			"_transaccion"  => $data["_transaccion"],
+			"_date_pay"     => $date->format("Y-m-d"),
+			"_rode"         => $data["_rode"],
+			"_Athachment "  => $file,
+			"_state_pay"    => 10
+		];
+	}
+
+	public function savePay($file, $data){
+		$this->db->insert("tbapp_order_payment", self::dataPay($file, $data));
+		return $this->db->insert("tbapp_order_timeline", [
+			"_order_id"    => $data["_order_id"],
+			"_order_state" => 10
+			]);
+	}
+
 }
 
 /* End of file AppAdministrationModel.php */

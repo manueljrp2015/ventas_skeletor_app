@@ -89,7 +89,7 @@ $(function() {
                     dataFormat: 'json',
                     dataSource: {
                         "chart": {
-                            "caption": "Total de compras por este año",
+                            "caption": "Total de pedidos por este año",
                             "subCaption": "Anual",
                             "xAxisName": "Mes",
                             "yAxisName": "Compras",
@@ -183,7 +183,7 @@ $(function() {
                     dataFormat: 'json',
                     dataSource: {
                         "chart": {
-                            "caption": "Compras por semana",
+                            "caption": "Pedidos por semana",
                             "subCaption": "Ultimo mes",
                             "numberPrefix": "$",
                             "paletteColors": "#0075c2",
@@ -193,7 +193,7 @@ $(function() {
                             "html5exporthandler": "http://export.api3.fusioncharts.com",
                             "subCaption": "Mes",
                             "xAxisName": "Semanas",
-                            "yAxisName": "Compras",
+                            "yAxisName": "Pedidos",
                             "bgColor": "#ffffff",
                             "showBorder": "0",
                             "use3DLighting": "0",
@@ -239,10 +239,10 @@ $(function() {
                     dataFormat: 'json',
                     dataSource: {
                         "chart": {
-                            "caption": "Total de compras por este mes",
+                            "caption": "Total de pedidos por este mes",
                             "subCaption": "Anual",
                             "xAxisName": "Mes",
-                            "yAxisName": "Compras",
+                            "yAxisName": "pedidos",
                             "lineThickness": "5",
                             "exportenabled": "1",
                             "exportatclient": "1",

@@ -185,6 +185,7 @@ $route['store/findProduct']                     = '/app/store/appStoreController
 $route['store/get-list-product-store']          = '/app/store/appStoreController/findProductStoreAllLimit';
 $route['store/put-product-orders']              = '/app/store/appStoreController/putProductOrder';
 $route['store/find-product-for-name']           = '/app/store/appStoreController/findProductForName';
+$route['store/find-product-for-line']           = '/app/store/appStoreController/findProductForLine';
 $route['(:any)/find-order-pending-store']       = '/app/store/appStoreController/findOrderPending';
 
 $route['mi-carrito']                            = '/app/cart/appCartController/indexCart';
@@ -287,9 +288,11 @@ $route['administration/get-pay-client']         = '/app/administration/appAdmini
 $route['administration/get-pay-id']             = '/app/administration/appAdministrationController/getPayClientId';
 $route['administration/get-state-pay']          = '/app/administration/appAdministrationController/getOrderState';
 $route['administration/change-state-pay']       = '/app/administration/appAdministrationController/changeStateGeneric';
+$route['administration/upload-files-payment']   = '/app/administration/appAdministrationController/uploadFileSupport';
 
-$route['(:any)/upload-files-payment']           = '/app/payment/appPaymentController/uploadFileSupport';
+
 $route['mis-pagos/pagos']                       = '/app/payment/appPaymentController/indexPay';
+$route['(:any)/get-pay']                     = '/app/payment/appPaymentController/getPay';
 
 $route['api-ionic']                             = '/app/ionic/appIonicController/getAuthorized';
 $route['api-ionic/recovery-authorized']         = '/app/ionic/appIonicController/getApiIonic';

@@ -76,32 +76,32 @@
 										</div>
 									</li>-->
 									<li class="">
-										<div class="collapsible-header"><i class="material-icons">store_mall_directory</i>Bodega</div>
+										<div class="collapsible-header"><i class="material-icons">store_mall_directory</i>Nuestra Bodega TAMY</div>
 										<div class="collapsible-body" style="display: none;">
 											<br>
 											<div class="row">
 												<form class="col s12" id="frmbodega">
 													<div class="row">
-														<div class="input-field col s6">
-															<input placeholder="" id="_contact" name="_contact" class="validate" type="text">
-															<label for="_contact" class="active">Contacto</label>
+														<div class="input-field col s12 m12 l8">
+															<input placeholder="" id="_contact" name="_contact" class="validate" type="text" style="padding: 5px; text-align: right; font-size: 14px; border: 1px solid #BCBCBC; margin-top: 5px; height: 25px;">
+															<label for="_contact" class="active" style="color: #1a237e;"><strong>Quien Retira el pedido?</strong></label>
 														</div>
-														<div class="input-field col s6">
-															<input id="_cel_contact" name="_cel_contact" class="validate" type="text" placeholder="">
-															<label for="_cel_contact">Teléfono</label>
+														<div class="input-field col s12 m12 l4">
+															<input id="_cel_contact" name="_cel_contact" class="validate" type="text" placeholder="" style="padding: 5px; text-align: right; font-size: 14px; border: 1px solid #BCBCBC; margin-top: 5px; height: 25px;">
+															<label for="_cel_contact" style="color: #1a237e;"><strong>Teléfono de quien retira?</strong></label>
 														</div>
 													</div>
 													
 													<div class="row">
-														<div class="input-field col s4">
+														<div class="input-field col s12 m12 l3">
 															<input id="_type_courier2" name="_type_courier2" value="2"  type="hidden">
 															<input id="_order_id" name="_order_id" value="<?= $this->input->get("order") ?>"  type="hidden">
 															<input id="_store_id" name="_store_id" value="<?= $resumenOrder->_store_id ?>"  type="hidden">
-															<input id="_date_courier" name="_date_courier" class="datepicker picker__input" readonly="" tabindex="-1" aria-haspopup="true" aria-expanded="false" aria-readonly="false" aria-owns="birthdate_root" type="text">
-															<label for="first_name" class="active">Fecha de Retiro</label>
+															<input id="_date_courier" name="_date_courier" class="datepicker picker__input" readonly="" tabindex="-1" aria-haspopup="true" aria-expanded="false" aria-readonly="false" aria-owns="birthdate_root" type="text" >
+															<label for="first_name" class="active" style="color: #1a237e;"><strong>Fecha en que Retirara?</strong></label>
 														</div>
-														<div class="input-field col s4">
-															<select name="_horario" id="_horario" >
+														<div class="input-field col s12 m12 l3">
+															<select name="_horario" id="_horario" style="padding: 5px; text-align: right; font-size: 14px; border: 1px solid #BCBCBC; margin-top: 5px; height: 25px;">
 																<option value="" selected>Seleccione una opcion</option>
 																<?php
 																for($i = 8; $i <= 18; $i++):
@@ -111,7 +111,7 @@
 																endfor;
 																?>
 															</select>
-															<label>Horario</label>
+															<label style="color: #1a237e;"><strong>Horario</strong></label>
 														</div>
 														<div class="input-field col s4">
 															<button type="submit"  class="waves-effect waves-light btn orange m-b-xs">Guardar</button>
@@ -122,7 +122,7 @@
 										</div>
 									</li>
 									<li>
-										<div class="collapsible-header"><i class="material-icons">local_convenience_store</i>Otros</div>
+										<div class="collapsible-header"><i class="material-icons">local_convenience_store</i>Otro Medio de Retiro</div>
 										<div class="collapsible-body" style="">
 											<br>
 											<div class="row">
@@ -137,24 +137,24 @@
 															<input id="_order_id" name="_order_id" value="<?= $this->input->get("order") ?>"  type="hidden">
 															<input id="_store_id" name="_store_id" value="<?= $resumenOrder->_store_id ?>"  type="hidden">
 															<input placeholder="" id="_contact" name="_contact" class="validate" type="text">
-															<label for="_contact" class="active">Contacto</label>
+															<label for="_contact" class="active" style="color: #1a237e;"><strong>Quien Retira el Pedido?</strong></label>
 														</div>
 														<div class="input-field col s6">
 															<input id="_cel_contact" name="_cel_contact" class="validate" type="text" placeholder="">
-															<label for="_cel_contact">Teléfono</label>
+															<label for="_cel_contact" style="color: #1a237e;"><strong>Teléfono de quien Retira?</strong></label>
 														</div>
 														
 													</div>
 													<div class="row">
 														<div class="input-field col s12">
 															<input id="_dir" name="_dir" class="validate" type="text" placeholder="">
-															<label for="_dir">Dirección</label>
+															<label for="_dir" style="color: #1a237e;"><strong>Dirección a donde se enviara?</strong></label>
 														</div>
 													</div>
 													<div class="row">
 														<div class="input-field col s12">
 															<input id="_emp" name="_emp" class="validate" type="text" placeholder="">
-															<label for="_emp">Empresa de Transporte</label>
+															<label for="_emp" style="color: #1a237e;"><strong>Empresa de Transporte por el cual se enviara el pedido?</strong></label>
 														</div>
 													</div>
 													<div class="row">
@@ -202,7 +202,7 @@
 									</tr>
 									<tr>
 										<th></th>
-										<th style="text-align: right; font-size: 17px;"><input id="_order_id" name="_order_id" value="<?= $this->input->get("order") ?>"  type="hidden"><a href="javascript: void(0)" class="waves-effect waves-light btn orange m-b-xs" id="btaccording">Acepto Conforme</a></th>
+										<th style="text-align: right; font-size: 17px;"><input id="_order_id" name="_order_id" value="<?= $this->input->get("order") ?>"  type="hidden"><a href="javascript: void(0)" class="waves-effect waves-light btn orange m-b-xs" id="btaccording">Acepto Conforme </a></th>
 									</tr>
 								</thead>
 							</table>

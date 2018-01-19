@@ -76,7 +76,7 @@
     </div>
   </div>
   <div class="row">
-    <div id="modal3" class="modal modal-fixed-footer">
+    <div id="modal3" class="modal modal-fixed-footer" style="width: 1300px; height: 100% !important;">
       <div class="modal-content">
         <h4>Detalle de Compra</h4>
         <h3 style="color: green;" id="lb-order"></h3>
@@ -92,7 +92,7 @@
     </div>
   </div>
   <div class="row">
-    <div id="modal4" class="modal" style="width: 1300px;">
+    <div id="modal4" class="modal" style="width: 1300px; ">
       <div class="modal-content">
         <h4>TimeLine de Tu pedido</h4>
         <h3 style="color: green;" id="tlb-order"></h3>
@@ -152,93 +152,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div id="modal5" class="modal modal-fixed-footer" style="width: 1300px;">
-      <div class="modal-content">
-        <h3>Pago</h3>
-        <h3 style="color: green;" id="paylb-order"></h3>
-        <br>
-        <form id="fmfile" class="p-v-xs" enctype="multipart/form-data" method="post">
-          <div class="row">
-            <div class="input-field col s4">
-              <select  id="_tipo_pago" name="_tipo_pago">
-                <option value=""></option>
-                <?php
-                foreach ($typePayment as $key => $value) {
-                ?>
-                <option value="<?= $value->id ?>"><?= $value->_type_payment ?></option>
-                <?php } ?>
-              </select>
-              <label for="mask1" class="active">Tipo de Pago</label>
-            </div>
-            <div class="input-field col s4">
-              
-              <select  id="_banco_o" name="_banco_o">
-                <option value=""></option>
-                <?php
-                foreach ($bank as $key => $value) {
-                ?>
-                <option value="<?= $value->id ?>"><?= $value->_bank ?></option>
-                <?php } ?>
-              </select>
-              <label for="mask1" class="active">Banco de Origen</label>
-            </div>
-            <div class="input-field col s4">
-              <select  id="_banco_d" name="_banco_d">
-                <option value=""></option>
-                <?php
-                foreach ($bank as $key => $value) {
-                if($value->id != 13){}
-                else{
-                ?>
-                <option value="<?= $value->id ?>"><?= $value->_bank ?></option>
-                <?php }} ?>
-              </select>
-              <label for="mask1" class="active">Banco de Destino</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s4">
-              <input placeholder="" id="_transaccion" name="_transaccion" class="masked" type="text" style="font-size: 24px; text-align: right;">
-              <input placeholder="" id="_store_id" name="_store_id"  type="hidden" style="font-size: 24px; text-align: right;">
-              <label for="mask1" class="active">Transacción / Nro. Cheque</label>
-            </div>
-            <div class="input-field col s4">
-              <input placeholder="" id="_order_id" name="_order_id" class="masked" type="hidden">
-              <input placeholder="" id="_datep" name="_datep" class="datepicker picker__input" type="text"  style="font-size: 24px; text-align: right;">
-              <label for="mask1" class="active">Fecha de Pago</label>
-            </div>
-            <div class="input-field col s4">
-              <input placeholder="" id="_rode" name="_rode" class="masked" type="text" style="font-size: 24px; text-align: right;">
-              <label for="mask1" class="active">Monto</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="file-field input-field col s12 m6 l6">
-              <div class="btn teal lighten-1">
-                <span>Soporte</span>
-                <input type="file" accept="image/*, application/pdf" name="file" id="file" onchange="onLoadFile(event)">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate valid" type="text">
-              </div>
-            </div>
-            <button id="upload-button" type="submit" onclick="return false;" class="btn btn-small waves-effect waves-light teal lighten-2">
-            <i class="material-icons left">file_upload</i> Guardar</button>
-            <div id="info-file"></div>
-            <div id="loader10">
-              <div id="porcent"></div>
-              <div class="progress"><div class="determinate" style="width: 0%" id="process"></div></div>
-            </div>
-            
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
-      </div>
-    </div>
-  </div>
+
 </main>
 <link href="<?= PATH_PUBLIC_PLUGINS."/datatables/css/jquery.dataTables.min.css" ?>" rel="stylesheet" type="text/css"/>
 <script src="<?= PATH_PUBLIC_PLUGINS."/datatables/js/jquery.dataTables.min.js" ?>"></script>

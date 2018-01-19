@@ -59,7 +59,7 @@ class appPaymentController extends CI_Controller
 		}
 		else{
 					$this->session->sess_destroy();
-      		redirect('/','auto');
+      		        redirect('/','auto');
 		}
 	}
 
@@ -75,7 +75,17 @@ class appPaymentController extends CI_Controller
 	    ];
 
 	    $this->load->view("app/template/index_template_app", $data);
-	
+	}
 
+	public function getPay(){
+		if ($this->input->is_ajax_request()) {
+			 $response = array(
+            "text" => json_encode( $this->appPaymentModel->getPay()));
+			$this->load->view("app/response/text", $response);
+		} else {
+			$this->session->sess_destroy();
+      		redirect('/','auto');
+		}
+		
 	}
 }

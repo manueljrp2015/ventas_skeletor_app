@@ -27,10 +27,13 @@ class appStoreController extends CI_Controller
 
 		$this->appMonitorModel->putRecord(["user" => $this->session->userdata("id") ,"process" => "ha ingresado al modulo tienda de productos"]);	
 		$data = [
-			"folder"    => "store",
-			"file"      => "index",
-			"listStore" => $this->appCatalogsModel->getStoreNew(),
-			"listProd" => $this->appStoreModel->findProductAll(),
+			"folder"     => "store",
+			"file"       => "index",
+			"listStore"  => $this->appCatalogsModel->getStoreNew(),
+			"listProd"   => $this->appStoreModel->findProductAll(),
+			"listLine"   => $this->appCatalogsModel->getLineProduct(),
+			"listCat"    => $this->appCatalogsModel->getCategoryProduct(),
+			"listSubCat" => $this->appCatalogsModel->getSubCategoryProduct(),
 	    ];
 
 	    $this->load->view("app/template/index_template_app", $data);
@@ -53,6 +56,15 @@ class appStoreController extends CI_Controller
 
 		 $response = array(
             "text" => json_encode( $this->appStoreModel->findProductForName($this->input->get("query"), $this->input->get("store"))));
+		$this->load->view("app/response/text", $response);
+
+	}
+
+
+	public function findProductForLine(){
+
+		 $response = array(
+            "text" => json_encode( $this->appStoreModel->findProductForLine($this->input->get())));
 		$this->load->view("app/response/text", $response);
 
 	}

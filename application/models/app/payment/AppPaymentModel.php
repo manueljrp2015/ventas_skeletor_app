@@ -42,24 +42,42 @@ class appPaymentModel extends CI_Model
 		if ($this->session->userdata("stores_new") == '*') {
 			return $this->db->query("
 				SELECT
-				ty._type_payment as paym, bk1._bank as bank_ori, bk2._bank as bank_dest, st._store, pay.* FROM
-				tbapp_order_payment as pay
-				LEFT JOIN tbapp_type_payments as ty ON ty.id = pay._type_payment
-				LEFT JOIN tbapp_bank as bk1 on bk1.id = pay._bank_origyn
-				LEFT JOIN tbapp_bank as bk2 on bk2.id = pay._bank_destiny
-				LEFT JOIN tbapp_stores as st on st.id = pay._store_id
+					ord._order_id,
+					ord._total_order,
+					ord._store_id,
+					ord._date_create,
+					st._store,
+					pay._paying_to,
+					opay._rode,
+					opay._date_approved,
+					opay._create_at,
+					opay._state_pay
+				FROM
+					tbapp_orders AS ord
+				LEFT JOIN tbapp_stores AS st ON st.id = ord._store_id
+				LEFT JOIN tbapp_store_payment_conditions as pay ON pay._store_id = ord._store_id
+				LEFT JOIN tbapp_order_payment as opay on opay._order_id = ord._order_id
 				")->result();
 		} else {
 			return $this->db->query("
 				SELECT
-				ty._type_payment as paym, bk1._bank as bank_ori, bk2._bank as bank_dest, st._store, pay.* FROM
-				tbapp_order_payment as pay
-				LEFT JOIN tbapp_type_payments as ty ON ty.id = pay._type_payment
-				LEFT JOIN tbapp_bank as bk1 on bk1.id = pay._bank_origyn
-				LEFT JOIN tbapp_bank as bk2 on bk2.id = pay._bank_destiny
-				LEFT JOIN tbapp_stores as st on st.id = pay._store_id
+					ord._order_id,
+					ord._total_order,
+					ord._store_id,
+					ord._date_create,
+					st._store,
+					pay._paying_to,
+					opay._rode,
+					opay._date_approved,
+					opay._create_at,
+					opay._state_pay
+				FROM
+					tbapp_orders AS ord
+				LEFT JOIN tbapp_stores AS st ON st.id = ord._store_id
+				LEFT JOIN tbapp_store_payment_conditions as pay ON pay._store_id = ord._store_id
+				LEFT JOIN tbapp_order_payment as opay on opay._order_id = ord._order_id
 				WHERE
-					pay._store_id in  (".$this->session->userdata("stores_new").");
+					ord._store_id IN  (".$this->session->userdata("stores_new").");
 				")->result();
 		}
 		

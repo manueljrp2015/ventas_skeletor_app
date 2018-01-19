@@ -9,7 +9,7 @@ $(function() {
 
     $(".modal").modal();
     $('.modal').modal({
-        dismissible: true,
+        dismissible: false,
         opacity: .5,
         inDuration: 300,
         outDuration: 200,
@@ -319,45 +319,35 @@ $(function() {
             $("#tbpurchasessummary").empty().append(tb2);
 
 
-            tb = '<table id="table-purchases" class="display responsive-table datatable-example striped">' +
+            tb = '<table id="table-purchases" class="display responsive-table datatable-example striped" style="font-size: 14px;">' +
                 '<thead>' +
                 '<tr>' +
-                '<th ></th>' +
-                '<th>#</th>' +
-                '<th>#</th>' +
-                '<th>#</th>' +
-                '<th>#</th>' +
-                '<th>#</th>' +
-                '<th>#</th>' +
-                '<th>#</th>' +
-                '<th style="text-align: center;">PROGRESO</th>' +
-                '<th>ID</th>' +
-                '<th>ORDEN</th>' +
+                
+               
+                '<th>PEDIDO</th>' +
                 '<th>CLIENTE</th>' +
                 '<th>NETO</th>' +
                 '<th>IVA</th>' +
                 '<th>TOTAL</th>' +
                 '<th>FECHA</th>' +
+                 '<th>#</th>' +
+                '<th>#</th>' +
+                '<th>#</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tfoot>' +
                 '<tr>' +
-                '<th></th>' +
-                '<th>#</th>' +
-                '<th>#</th>' +
-                '<th>#</th>' +
-                '<th>#</th>' +
-                '<th>#</th>' +
-                '<th>#</th>' +
-                 '<th>#</th>' +
-                '<th style="text-align: center;">PROGRESO</th>' +
-                '<th>ID</th>' +
-                '<th>ORDEN</th>' +
+             
+               
+                '<th>PEDIDO</th>' +
                 '<th>CLIENTE</th>' +
                 '<th>NETO</th>' +
                 '<th>IVA</th>' +
                 '<th>TOTAL</th>' +
                 '<th>FECHA</th>' +
+                 '<th>#</th>' +
+                '<th>#</th>' +
+                '<th>#</th>' +
                 '</tr>' +
                 '</tfoot>' +
                 '<tbody>';
@@ -411,24 +401,24 @@ $(function() {
                     color = "#ffee58";
                 }
 
-                tb += '<tr>' +
-                    '<td style="text-align: center; background-color: ' + color + '; width: 5%; font-size: 10px;">' + val._description_state + '</td>' +
-                    '<td style="text-align: center;"><a href="invoice?o=' + base64_encode(val._order_id) + '&s=' + base64_encode(val._store_id) + '" title="Comprobante" target="_blank"><i class="material-icons">picture_as_pdf</i></a></td>' +
-                    '<td style="text-align: center;"><a href="javascript: void(0)" title="Comentarios" onclick="modalComment(' + val._order_id + ',' + val.id + ')""><i class="material-icons"><i class="material-icons">comment</i></a></td>' +
-                    '<td style="text-align: center;"><a href="javascript: void(0)" title="Pago de la compra" ' + activateModal + '><i class="material-icons">' + icon + '</i></a></td>' +
-                    '<td style="text-align: center;"><a href="javascript: void(0)" title="Transporte de la compra" onclick="modalTransport(' + val._order_id + ',' + val.id + ')"><i class="material-icons">local_shipping</i></a></td>' +
-                    '<td style="text-align: center;"><a href="javascript: void(0)" title="Detalle de la compra" onclick="getItemOrder(' + val._order_id + ')"><i class="material-icons">event_note</i></a></td>' +
-                    '<td style="text-align: center;"><a href="javascript: void(0)" title="Timeline de la compra" onclick="timelineOrder(' + val._order_id + ')""><i class="material-icons">timeline</i></a></td>' +
-                    '<td style="text-align: center;"><a href="javascript: void(0)" title="información sobre el pedido" onclick="getPaymentForOrdertId(' + val.id + ')""><i class="material-icons">info</i></a></td>' +
-                    '<td style="text-align: center;"><div class="c100 p' + percent + ' small ' + line + '"><span>' + percent + '%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></td>' +
+                tb += '<tr style="height: 10px;">' +
                     
-                    '<td>' + val.id + '</td>' +
-                    '<td>' + val._order_id + '</td>' +
+                    
+                    '<td style="text-align: center;">' + val._order_id + '</td>' +
                     '<td>' + val._store + '</td>' +
                     '<td>$' + number_format(val._total_neto, 2, ",", ".") + '</td>' +
                     '<td>$' + number_format(val._total_iva, 2, ",", ".") + '</td>' +
                     '<td>$' + number_format(val._total_order, 2, ",", ".") + '</td>' +
                     '<td>' + moment(val._date_create).format("DD-MM-YYYY") + '</td>' +
+                    /*'<td style="text-align: center; background-color: ' + color + '; width: 5%; font-size: 10px;">' + val._description_state + '</td>' +*/
+                    '<td style="text-align: center;"><a href="invoice?o=' + base64_encode(val._order_id) + '&s=' + base64_encode(val._store_id) + '" title="Comprobante" target="_blank" class="btn indigo"> PRINT</a></td>' +
+                    /*'<td style="text-align: center;"><a href="javascript: void(0)" title="Comentarios" onclick="modalComment(' + val._order_id + ',' + val.id + ')""><i class="material-icons left" class="btn indigo"><i class="material-icons">comment</i></a></td>' +*/
+                    /*'<td style="text-align: center;"><a href="javascript: void(0)" title="Pago de la compra" ' + activateModal + '><i class="material-icons">' + icon + '</i></a></td>' +
+                    '<td style="text-align: center;"><a href="javascript: void(0)" title="Transporte de la compra" onclick="modalTransport(' + val._order_id + ',' + val.id + ')"><i class="material-icons">local_shipping</i></a></td>' +*/
+                    '<td style="text-align: center;"><a href="javascript: void(0)" title="Detalle de la compra" onclick="getItemOrder(' + val._order_id + ')" class="btn green darken-4">Detalle</a></td>' +
+                    '<td style="text-align: center;"><a href="javascript: void(0)" title="Timeline de la compra" onclick="timelineOrder(' + val._order_id + ')"" class="btn orange darken-4">Estados</a></td>' +
+                    /*'<td style="text-align: center;"><a href="javascript: void(0)" title="información sobre el pedido" onclick="getPaymentForOrdertId(' + val.id + ')""><i class="material-icons">info</i></a></td>' +*/
+                    /*'<td style="text-align: center;"><div class="c100 p' + percent + ' small ' + line + '"><span>' + percent + '%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></td>' +*/
                     '</tr>';
             });
 
