@@ -187,7 +187,7 @@ class appUserAdminModel extends CI_Model
 		"_nickname"               => strtolower($data["user"]),
 		"_mail"                   => strtolower($data["email"]),
 		"_key"                    => $this->appFunctionsModel->hashPassword($data["password"]),
-		"_account_id"             => 7,
+		"_account_id"             => 10,
 		"_store_id"               => $data["typeAccount"],
 		"_country_id"             => 2,
 		"_relacionship_store"     => $stores,

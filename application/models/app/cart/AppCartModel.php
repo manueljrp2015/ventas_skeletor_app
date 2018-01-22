@@ -21,10 +21,12 @@ class appCartModel extends CI_Model
 				prod._width,
 				prod._large,
 				prod._available,
-				prod._weight
+				prod._weight,
+				img._img
 			FROM
 				tbapp_orders_line as line
 			inner JOIN tbapp_products as prod on prod.id = line._product_id
+			LEFT JOIN  tbapp_products_img as img ON img._product_id = prod.id
 			WHERE
 				line._store_id = ".$store."
 				AND ISNULL(line._order_id)

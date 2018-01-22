@@ -30,12 +30,9 @@ $CI =& get_instance();
                         <span class="badge" id="count-order">0</span>
                     </a>
                 </li>
-
                 <li>
-                    Semana <?= date("W") ?>
+                    
                 </li>
-
-                
             </ul>
             <ul id="dropdown1" class="dropdown-content notifications-dropdown">
                 <li class="notificatoins-dropdown-container">

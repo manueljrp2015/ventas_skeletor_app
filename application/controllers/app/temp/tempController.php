@@ -9,6 +9,9 @@ class TempController extends CI_Controller {
 	{
 		parent::__construct();
 		$this->dbf = $this->load->database('franquisia', TRUE);
+		$this->load->model([
+			'app/transactions/AppTransactionsModel'
+		]);
 	}
 
 	public function index()
@@ -17,7 +20,7 @@ class TempController extends CI_Controller {
 	}
 
 
-	public function includeProduct(){
+	/*public function includeProduct(){
 
 		$query = $this->dbf->get("tiendas")->result();
 		foreach ($query as $key => $value) {
@@ -88,6 +91,59 @@ class TempController extends CI_Controller {
 		}
 		$response = ["text" => json_encode($a)];
             $this->load->view("app/response/text", $response);
+	}*/
+
+	public function algorithmCalendarOrder(){
+		$query = $this->db->where(["_active" => "a"])->get("tbapp_order_calendar")->row();
+		if ($query) {
+
+			//$dates = date("Y-m-d");
+			$dates = "2018-02-22";
+
+			$start_order = new DateTime($dates);
+			$start  = new DateTime($query->_start);
+			$end  = new DateTime($query->_end);
+			$interval = $start_order->diff($end);
+			$interval2 = $start->diff($end);
+
+			$num_week = ceil($interval2->format('%a') / 7);
+
+
+			if($interval->format('%R%a') >= 0){
+				$date = new DateTime($dates);
+				$week = (floor($interval->format('%a')/7));
+				$week_position = $num_week - $week;
+				$week_calendar = (string)($date->format('W') - 1);
+			}
+			else{
+
+				$this->db->where(["id" => $query->id])->update("tbapp_order_calendar",[
+					"_active" => 'i'
+				]);
+				$this->db->where(["id" => ($query->id + 1)])->update("tbapp_order_calendar",[
+					"_active" => 'a'
+				]);
+
+				$this->algorithmCalendarOrder();
+				exit;
+			}
+
+			var_dump((object)[
+				"date_create"     => $dates, 
+				"resto_dias"      => (int)$interval->format('%R%a'), 
+				"weeks"           => (string)$num_week, 
+				"week_point"      => (string)$week_position,
+				"week_calendar"   => $week_calendar,
+				"_start_calendar" => $query->_start,
+				"_end_calendar"   => $query->_end,
+				"_month_calendar" => $query->_month,
+				"_year_calendar"  => $query->_year,
+				"id_calendar"  => $query->id,
+				]);
+		} else {
+			var_dump( ["msg" => "no-calendar"] );
+		}
+		
 	}
 
 }

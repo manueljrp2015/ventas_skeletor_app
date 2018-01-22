@@ -1,3 +1,5 @@
+
+<script src="<?= PATH_PUBLIC_PLUGINS."/imgLiquid/imgLiquid-min.js" ?>"></script>
 <main class="mn-inner">
   <div class="row">
     <div class="col s12">
@@ -78,6 +80,7 @@
                       '<thead>' +
                       '<tr>' +
                       '<th style="text-align: center;">Eliminar</th>' +
+                      '<th style="text-align: center;">IMG</th>' +
                       '<th style="text-align: center;">SKU</th>' +
                       '<th style="text-align: center;">PRODUCTO</th>' +
                       '<th style="text-align: center;">CANTIDAD</th>' +
@@ -104,6 +107,7 @@
 
                       tb += '<tr>' +
                           '<td style="text-align: center"><a href="javascript: void(0)" class="btn indigo" onclick=deleteItem(' + val.id + ')>Eliminar</a></td>' +
+                          '<td style="text-align: center;"><div class="imgLiquidFills imgLiquid" style="width:100px; height:100px; background: #fafafa"><img src="' + val._img + '" width="60px;" class="materialboxed"></img></td>' +
                           '<td style="text-align: center;">' + val._producto_sku + '</td>' +
                           '<td>' + val._product + '</td>' +
                           '<td style="width: 150px;"><input style="text-align: center" type="number" name="cant" id="cant' + i + '" min="1" max="' + parseInt(val._available) + '" value=' + parseInt(val._cant) + ' style="margin: 0;"></td>' +
@@ -129,9 +133,17 @@
                       var txt = "disabled='disabled'";
                   }
 
-                  tb += '<tr><td></td><td></td><td style="text-align: right; font-size: 16px; color: green;" id="total_volumen"></td><td style="text-align: center; font-size: 16px; color: green;">' + tc + '</td><td style="text-align: right; font-size: 16px; color: green;" id="total_peso"></td><td style="text-align: right; font-size: 16px; color: green;"></td><td></td></tr><tr><td></td><td></td><td style="text-align: center; font-size: 16px; color: green;"></td><td style="text-align: right; font-size: 16px; color: green;"></td><td style="text-align: right; font-size: 16px;">Total</td><td style="text-align: right; font-size: 16px;">' + number_format(tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;">Credito</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;">Balance</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance - tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;"></td><td><button id="process" class="waves-effect waves-light btn orange m-b-xs" ' + txt + '>Confirmar Pedido</button></td></tr></tbody></table>';
+                  tb += '<tr><td></td><td></td><td></td><td style="text-align: right; font-size: 16px; color: green;" id="total_volumen"></td><td style="text-align: center; font-size: 16px; color: green;">' + tc + '</td><td style="text-align: right; font-size: 16px; color: green;" id="total_peso"></td><td style="text-align: right; font-size: 16px; color: green;"></td><td></td></tr><tr><td></td><td></td><td></td><td style="text-align: center; font-size: 16px; color: green;"></td><td style="text-align: right; font-size: 16px; color: green;"></td><td style="text-align: right; font-size: 16px;">Total</td><td style="text-align: right; font-size: 16px;">' + number_format(tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;">Credito</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;">Balance</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance - tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;"></td><td><button id="process" class="waves-effect waves-light btn orange m-b-xs" ' + txt + '>Confirmar Pedido</button></td></tr></tbody></table>';
 
                   $("#cart-list").empty().append(tb);
+
+                   $('.materialboxed').materialbox();
+
+        $(".imgLiquidFills").imgLiquid({
+            fill: false,
+            horizontalAlign: 'center',
+            verticalAlign: 'center'
+        });
               }
 
               $("#process").click(function(event) {
@@ -191,11 +203,14 @@
               .done(function(response) {
 
                 preloader.off();
-                  if (response.data.msg == "done") {
+                if(response.data.msg == "no-calendar"){
+                  swal("información","No hay un calendario predeterminado para procesar los pedidos, esto debe ser programado por parte importadora Tamy le pedimos disculpas por el inconveniente en momentos se estará solucionado el problema, pero tranquilo no todo es malo tu pedido ya está pre-guardado solo falta confirmación y aceptar conforme prueba en unos minutos de nuevo. Pedimos disculpas.", "info");
+                }
+                else  if (response.data.msg == "done") {
                       swal({
                           title: "Pedido Generado",
                           text: "Su pedido ha sido generado "+response.data.order+" sera redireccionado para establecer los detalles de despacho.",
-                          type: "warning",
+                          type: "success",
                           showCancelButton: false,
                           confirmButtonColor: "#DD6B55",
                           confirmButtonText: "Continuar",

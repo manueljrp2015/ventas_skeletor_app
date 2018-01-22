@@ -1,7 +1,30 @@
+<?php
+$CI =& get_instance();
+$CI->load->model(["app/transactions/AppTransactionsModel"]);
+$calendar = $CI->AppTransactionsModel->algorithmCalendarOrder();
+?>
 <script src="<?= PATH_PUBLIC_PLUGINS."/fusionchart/fusioncharts.js" ?>" type="text/javascript"></script>
 <script src="<?= PATH_PUBLIC_PLUGINS."/fusionchart/fusioncharts.theme.zune.js" ?>" type="text/javascript"></script>
 <main class="mn-inner inner-active-sidebar">
   <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="card-panel blue-grey">
+        <span class="white-text">
+          <div >
+            <strong class="flow-text">Semana Calendario (<?= $calendar->week_calendar ?>)  || </strong>
+            <strong class="flow-text">Semana Facturación (<?= $calendar->week_point ?>) || </strong>
+            <strong class="flow-text">Periodo:
+              <?php
+              $date = new DateTime($calendar->start_calendar);
+              $datef = new DateTime($calendar->end_calendar);
+              echo $date->format("d-m-Y")." /  ".$datef->format("d-m-Y")." (".$calendar->weeks." Semanas) ";
+              ?>
+            </strong>
+</div>
+          
+        </span>
+      </div>
+    </div>
     <div class="col s12 m12 l8">
       <div class="col s12 m12 l4">
         <div class="card stats-card">

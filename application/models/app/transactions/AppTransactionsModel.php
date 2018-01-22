@@ -17,60 +17,73 @@ class appTransactionsModel extends CI_Model
 
 	public function consolidateOrder(){
 
-		$tax = $this->appFunctionsModel->getTax()->_tax_factor;
-		$summary = $this->sumOrder($this->input->post("store"));
-		$order_id = $this->getLastEnvoices();
-		$this->insertLastInvoice($order_id->_order_id, $order_id->_invoice);
+		$calendar = $this->algorithmCalendarOrder();
+
+		if($calendar->msg == "calendar"){
+
+			$tax = $this->appFunctionsModel->getTax()->_tax_factor;
+			$summary = $this->sumOrder($this->input->post("store"));
+			$order_id = $this->getLastEnvoices();
+			$this->insertLastInvoice($order_id->_order_id, $order_id->_invoice);
 
 
-		$this->db->insert("tbapp_orders",[
-			"_order_id"    => $order_id->_order_id,
-			"_total_order" => $summary->rode,
-			"_total_iva"   => ($summary->rode * $tax),
-			"_total_neto"  => ($summary->rode -( $summary->rode * $tax)),
-			"_item"        => $summary->item,
-			"_total_cant"  => $summary->cant,
-			"_store_id"    => $this->input->post("store"),
-			"_weight"      => $this->input->post("peso"),
-			"_volume"      => $this->input->post("volumen"),
-			"_order_state" => 1
-			]);
+			$this->db->insert("tbapp_orders",[
+					"_order_id"       => $order_id->_order_id,
+					"_total_order"    => $summary->rode,
+					"_total_iva"      => ($summary->rode * $tax),
+					"_total_neto"     => ($summary->rode -( $summary->rode * $tax)),
+					"_item"           => $summary->item,
+					"_total_cant"     => $summary->cant,
+					"_store_id"       => $this->input->post("store"),
+					"_weight"         => $this->input->post("peso"),
+					"_volume"         => $this->input->post("volumen"),
+					"_order_state"    => 1,
+					"_date_order"     => $calendar->date_create,
+					"_rest_day"       => $calendar->resto_dias,
+					"_weeks "         => $calendar->weeks,
+					"_week_point"     => $calendar->week_point,
+					"_week_calendar"  => $calendar->week_calendar,
+					"_month_calendar" => $calendar->month_calendar,
+					"_year_calendar"  => $calendar->year_calendar,
+					"_id_calendar"    => $calendar->id_calendar,
+				]);
 
-		
+			
 
-		$qord = $this->db->where(["_store_id" => $this->input->post("store"), "_order_id" => null])->get("tbapp_orders_line");
+			$qord = $this->db->where(["_store_id" => $this->input->post("store"), "_order_id" => null])->get("tbapp_orders_line");
 
-		$line = 1;
+			$line = 1;
 
-		foreach ($qord->result() as $key => $value) {
-			if($line == 30){
-				$line = 1;
+			foreach ($qord->result() as $key => $value) {
+				if($line == 30){
+					$line = 1;
+				}
+				$this->db->where(["_store_id" => $this->input->post("store"), "_order_id" => null, "id" => $value->id])->update("tbapp_orders_line",[
+				"_line_order" => $line
+				]);
+				$line = $line + 1;
 			}
-			$this->db->where(["_store_id" => $this->input->post("store"), "_order_id" => null, "id" => $value->id])->update("tbapp_orders_line",[
-			"_line_order" => $line
-			]);
-			$line = $line + 1;
+
+			$this->db->where(["_store_id" => $this->input->post("store"), "_order_id" => null])->update("tbapp_orders_line",[
+				"_order_id" => $order_id->_order_id
+				]);
+
+			$updat = $this->db->where(["_order_id" => $order_id->_order_id])->get("tbapp_orders_line")->result();
+
+			foreach ($updat as $key => $value) {
+				$this->updateAvailableReal($value->_product_id, $value->_cant);
+			}
+
+			$this->db->insert("tbapp_order_timeline",["_order_id" => $order_id->_order_id, "_order_state" => 1]);
+
+			$this->updateBalanceStore($order_id->_order_id, $summary->rode, "O");
+			return ["msg" => "done", "order" => $order_id->_order_id];
+		}
+		else if($calendar->msg == "no-calendar"){
+			return ["msg" => $calendar->msg];
 		}
 
 		
-
-
-		$this->db->where(["_store_id" => $this->input->post("store"), "_order_id" => null])->update("tbapp_orders_line",[
-			"_order_id" => $order_id->_order_id
-			]);
-
-
-
-		$updat = $this->db->where(["_order_id" => $order_id->_order_id])->get("tbapp_orders_line")->result();
-
-		foreach ($updat as $key => $value) {
-			$this->updateAvailableReal($value->_product_id, $value->_cant);
-		}
-
-		$this->db->insert("tbapp_order_timeline",["_order_id" => $order_id->_order_id, "_order_state" => 1]);
-
-		$this->updateBalanceStore($order_id->_order_id, $summary->rode, "O");
-		return ["msg" => "done", "order" => $order_id->_order_id];
 	}
 
 	public function updateAvailableReal($idproducto, $cant){
@@ -275,5 +288,58 @@ class appTransactionsModel extends CI_Model
 					]);
 			}
 		}
+	}
+
+	public function algorithmCalendarOrder(){
+		$query = $this->db->where(["_active" => "a"])->get("tbapp_order_calendar")->row();
+		if ($query) {
+
+			$dates = date("Y-m-d");
+
+			$start_order = new DateTime($dates);
+			$start  = new DateTime($query->_start);
+			$end  = new DateTime($query->_end);
+			$interval = $start_order->diff($end);
+			$interval2 = $start->diff($end);
+
+			$num_week = ceil($interval2->format('%a') / 7);
+
+
+			if($interval->format('%R%a') >= 0){
+				$date = new DateTime($dates);
+				$week = (floor($interval->format('%a')/7));
+				$week_position = $num_week - $week;
+				$week_calendar = (string)($date->format('W') - 1);
+			}
+			else{
+
+				$this->db->where(["id" => $query->id])->update("tbapp_order_calendar",[
+					"_active" => 'i'
+				]);
+				$this->db->where(["id" => ($query->id + 1)])->update("tbapp_order_calendar",[
+					"_active" => 'a'
+				]);
+
+				$this->algorithmCalendarOrder();
+				exit;
+			}
+
+			return(object)[
+				"msg"            => "calendar",
+				"date_create"    => $dates, 
+				"resto_dias"     => (int)$interval->format('%R%a'), 
+				"weeks"          => (string)$num_week, 
+				"week_point"     => (string)$week_position,
+				"week_calendar"  => $week_calendar,
+				"start_calendar" => $query->_start,
+				"end_calendar"   => $query->_end,
+				"month_calendar" => $query->_month,
+				"year_calendar"  => $query->_year,
+				"id_calendar"    => $query->id
+				];
+		} else {
+			return (object)["msg" => "no-calendar"];
+		}
+		
 	}
 }
