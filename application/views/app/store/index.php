@@ -1,6 +1,6 @@
 <script src="<?= PATH_PUBLIC_PLUGINS."/imgLiquid/imgLiquid-min.js" ?>"></script>
-<link href="<?= PATH_PUBLIC_PLUGINS."/google-code-prettify/prettify.css" ?>" rel="stylesheet" type="text/css"/>
-<script src="<?= PATH_PUBLIC_PLUGINS."/google-code-prettify/prettify.js" ?>"></script>
+<link href="<?= PATH_PUBLIC_PLUGINS."/fancybox/jquery.fancybox.min.css" ?>" rel="stylesheet" type="text/css"/>
+<script src="<?= PATH_PUBLIC_PLUGINS."/fancybox/jquery.fancybox.min.js" ?>"></script>
 <script src="<?= PATH_PUBLIC_PLUGINS."/masonry/masonry.pkgd.min.js" ?>"></script>
 <link href="<?= PATH_PUBLIC_CSS."/ribbon.css" ?>" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">
@@ -28,7 +28,6 @@ $(function() {
     });
 });
 </script>
-
 <main class="mn-inner">
     <div class="row">
         <div class="col s12">

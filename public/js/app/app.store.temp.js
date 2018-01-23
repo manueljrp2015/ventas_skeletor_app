@@ -143,14 +143,13 @@ $(function() {
     });
 
 
-
-    $('#store').change(function(event) {
-        if ($('#store').val() == "n") {
-            $('#ccost').val("06-001").trigger("change");
-        } else {
-            $('#ccost').val(null).trigger("change");
-        }
-    });
+	$('#store').change(function (event) {
+		if ($('#store').val() == "n") {
+			$('#ccost').val("06-001").trigger("change");
+		} else {
+			$('#ccost').val(null).trigger("change");
+		}
+	});
 
     $('#ccost').change(function(event) {
 

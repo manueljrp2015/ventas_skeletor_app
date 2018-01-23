@@ -46,7 +46,7 @@ $(function() {
     };
 
     mycart = function() {
-         if ($("#store_id_5").val() == null) {
+        if ($("#store_id_5").val() == null) {
             swal("Atención", "Seleccione una tienda o cliente", "error");
             return false;
         } else {
@@ -62,6 +62,9 @@ $(function() {
         var disabled;
         $("#listProd").empty();
         var ii = 1;
+        var style;
+        var hidden;
+        var not_available;
         $.each(obj, function(index, val) {
 
             if (val.productos == 0) {
@@ -86,11 +89,21 @@ $(function() {
                         var max_measure = "Disponible en unidad";
                     }
 
+                    if (val._available == 0) {
+                        style = "style='pointer-events: none; cursor: default;' disabled='disabled'";
+                        hidden = "style='display: none;'";
+                        not_available = '<strong style="text-decoration:line-through; color: red;">SIN STOCK</strong>';
+                    } else {
+                        style = "";
+                        hidden = "";
+                        not_available = '';
+                    }
+
                     card += '<div class="grid-item"><div class="col s12 m12">' +
                         '<div class="card hoverable">' +
                         '<div class="card-image">' +
-                        '<div class="imgLiquidFills imgLiquid" style="width:auto; height:150px; background: #fafafa">' +
-                        '<img class="materialboxed" alt="Woody" src="../' + val._img_thumbs + '">' +
+                        '<div class="imgLiquidFills imgLiquid " style="width:auto; height:150px; background: #fafafa">' +
+                        '<a href="../' + val._img_thumbs + '" data-fancybox data-caption="<h3>#' + val._sku + ' – <br /> ' + val._product + '</h3><p><p></p>"><img class="" alt="Woody" src="../' + val._img_thumbs + '"></a>' +
                         '</div> ' +
                         '</div>' +
                         '<div class="card-content"><div class="ribbon-wrapper"><div class="ribbon-color" style="background-color: ' + u_color + ';">' + u_name + '</div></div>';
@@ -109,11 +122,12 @@ $(function() {
                     card += '<p style="text-align: left; font-size: 12px;">#' + val._sku + '</p>';
                     card += '<p style="text-align: left; font-size: 12px;">Disponible: <strong id="dp' + i + '" style=" color: indigo;">' + val._available + '</strong></p>';
                     card += '<p style="text-align: left; font-size: 12px;">' + max_measure + '</p>';
-                    card += '<p>' +
-                        '<input value="0" id="cant' + i + '" name="cant' + i + '" type="text" class="validate" style="padding: 5px; text-align: center; font-size: 16px; border: 1px solid #BCBCBC; height: 14px; width: 100px;">' +
+                    card += '<p style="text-align: right; font-size: 28px;">' + not_available + '</p>';
+                    card += '<p ' + hidden + '>' +
+                        '<input value="0" id="cant' + i + '" name="cant' + i + '" type="text" class="validate"  style="padding: 5px; text-align: center; font-size: 16px; border: 1px solid #BCBCBC; height: 14px; width: 100px;">' +
                         '</<p></p>' +
                         '<p style="text-align: center;">' +
-                        '<a href="javascript: void(0)" class="waves-effect waves-light btn indigo m-b-xs" onclick=chargeCart("' + val._sku + '",' + i + ',' + val._available + ',' + price + ',' + val._producto_id + ')  ><i class="material-icons left">add_shopping_cart</i>Agregar</a>' +
+                        '<a href="javascript: void(0)" ' + style + ' class="waves-effect waves-light btn indigo m-b-xs" onclick=chargeCart("' + val._sku + '",' + i + ',' + val._available + ',' + price + ',' + val._producto_id + ')  ><i class="material-icons left">add_shopping_cart</i>Agregar</a>' +
                         '</p>' +
                         '</div>' +
                         '</div>' +
@@ -126,9 +140,10 @@ $(function() {
             ii++;
         });
 
+
         $("#listProd").empty().append(card);
 
-        $('.materialboxed').materialbox();
+        
 
         $(".imgLiquidFills").imgLiquid({
             fill: false,
