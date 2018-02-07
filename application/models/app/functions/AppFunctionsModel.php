@@ -12,12 +12,12 @@ class appFunctionsModel extends CI_Model
   }
 
   public function hashPassword($password)
-	{
+  {
 		$opciones = [
             'cost' => 12,
         ];
     return password_hash($password, PASSWORD_BCRYPT, $opciones);
-	}
+  }
 
 
 	public function generatePassword()

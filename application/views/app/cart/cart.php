@@ -84,6 +84,7 @@
                       '<th style="text-align: center;">SKU</th>' +
                       '<th style="text-align: center;">PRODUCTO</th>' +
                       '<th style="text-align: center;">CANTIDAD</th>' +
+                      '<th style="text-align: center;">UNIDADES</th>' +
                       '<th style="text-align: CENTER;">DISP.</th>' +
                       '<th style="text-align: right;">COSTO</th>' +
                       '<th style="text-align: center;">Ajustar Carrito</th>' +
@@ -98,19 +99,30 @@
                   var tv = 0;
                   var tp = 0;
                   var tcosto = 0;
+                  var cant;
+                  var label;
 
                   $.each(json.list, function(index, val) {
 
                       vol = (parseFloat(val._height) * parseFloat(val._width) * parseFloat(val._height)) * parseInt(val._cant);
 
                       wei = parseInt(val._cant) * parseFloat(val._weight);
+                      cant = (val._und == "UN") ? parseInt(val._cant) : (parseInt(val._cant) / parseInt(val._max_measure));
+
+                      if(val._und == "UN") {
+                       label = '<span class="green-text">unidades</span>';
+                      } 
+                      else{
+                        label = '<span class="red-text">Cajas X '+val._max_measure+' Und</span>';
+                      } 
 
                       tb += '<tr>' +
                           '<td style="text-align: center"><a href="javascript: void(0)" class="btn indigo" onclick=deleteItem(' + val.id + ')>Eliminar</a></td>' +
                           '<td style="text-align: center;"><div class="imgLiquidFills imgLiquid" style="width:100px; height:100px; background: #fafafa"><img src="' + val._img + '" width="60px;" class="materialboxed"></img></td>' +
                           '<td style="text-align: center;">' + val._producto_sku + '</td>' +
                           '<td>' + val._product + '</td>' +
-                          '<td style="width: 150px;"><input style="text-align: center" type="number" name="cant" id="cant' + i + '" min="1" max="' + parseInt(val._available) + '" value=' + parseInt(val._cant) + ' style="margin: 0;"></td>' +
+                          '<td style="width: 150px;"><input style="text-align: center" type="number" name="cant" id="cant' + i + '" min="1" max="' + parseInt(val._available) + '" value=' + cant + ' style="margin: 0;">'+label+'</td>' +
+                          '<td style="text-align: center;">' + parseInt(val._cant) + '</td>' +
                           '<td style="text-align: center;">' + parseInt(val._available) + '</td>' +
                           '<td style="text-align: right;">' + number_format(val._rode, 2, ",", ".") + '</td>' +
                           '<td style="text-align: center;"><a href="javascript: void(0)"  class="btn orange darken-4" onclick="updateOrder(' + i + ',' + val._product_id + ',' + val.id + ')"> Ajustar</a></td>' +
@@ -133,7 +145,10 @@
                       var txt = "disabled='disabled'";
                   }
 
-                  tb += '<tr><td></td><td></td><td></td><td style="text-align: right; font-size: 16px; color: green;" id="total_volumen"></td><td style="text-align: center; font-size: 16px; color: green;">' + tc + '</td><td style="text-align: right; font-size: 16px; color: green;" id="total_peso"></td><td style="text-align: right; font-size: 16px; color: green;"></td><td></td></tr><tr><td></td><td></td><td></td><td style="text-align: center; font-size: 16px; color: green;"></td><td style="text-align: right; font-size: 16px; color: green;"></td><td style="text-align: right; font-size: 16px;">Total</td><td style="text-align: right; font-size: 16px;">' + number_format(tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;">Credito</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;">Balance</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance - tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td style="text-align: center; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;"></td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;"></td><td><button id="process" class="waves-effect waves-light btn orange m-b-xs" ' + txt + '>Confirmar Pedido</button></td></tr></tbody></table>';
+
+                  tb += '</table>';
+
+                  tb += '<br><table class="display responsive-table striped" style="font-size: 12px;"><tr><td style="text-align: right; font-size: 16px; width: 80%;">Total</td><td style="text-align: right; font-size: 16px;">' + number_format(tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td style="text-align: right; font-size: 16px;">Credito</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance, 2, ",", ".") + '</td><td></td></tr><tr><td style="text-align: right; font-size: 16px;">Balance</td><td style="text-align: right; font-size: 16px;></td><td style="text-align: right; font-size: 16px;">' + number_format(json.paycond._balance - tcosto, 2, ",", ".") + '</td><td></td></tr><tr><td style="text-align: right; font-size: 16px;"></td><td style="text-align: right;"><button id="process" class="waves-effect waves-light btn orange m-b-xs" ' + txt + '>Confirmar Pedido</button></td></tr></tbody></table>';
 
                   $("#cart-list").empty().append(tb);
 

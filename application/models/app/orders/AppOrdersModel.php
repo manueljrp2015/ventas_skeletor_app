@@ -805,6 +805,8 @@ class appOrdersModel extends CI_Model
 
 		public function readExcelListProduct($files, $id_store){
 
+			$explode = explode(",", $id_store);
+
 			$archivo       = $files;
 			PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
 			$inputFileType = PHPExcel_IOFactory::identify($archivo);
@@ -817,6 +819,8 @@ class appOrdersModel extends CI_Model
 			$file_uri = "public/files/response/".sha1(date("Ymdhms")).".txt";
 			$file = fopen($file_uri, "a");
 
+		for($i=0; $i < count($explode); $i++){
+			
 			for ($row = 1; $row <= $highestRow; $row++){ 
 				
 				if(is_numeric($sheet->getCell("B".$row)->getValue())){
@@ -825,30 +829,30 @@ class appOrdersModel extends CI_Model
 
 					if($que){
 
-						$que2 = $this->dbf->where(["codigo" => $sheet->getCell("A".$row)->getValue(), "id_tienda" => $id_store])->get("lista_productos")->row();
+						$que2 = $this->dbf->where(["codigo" => $sheet->getCell("A".$row)->getValue(), "id_tienda" => $explode[$i]])->get("lista_productos")->row();
 
 						if ($que2) {
 
-							$this->dbf->where(["codigo" => $sheet->getCell("A".$row)->getValue(), "id_tienda" => $id_store])->update("lista_productos", [
+							$this->dbf->where(["codigo" => $sheet->getCell("A".$row)->getValue(), "id_tienda" => $explode[$i]])->update("lista_productos", [
 									"codigo"              => $sheet->getCell("A".$row)->getValue(),
 									"precio_franquiciado" => $sheet->getCell("B".$row)->getValue(),
-									"id_tienda"           => $id_store,
+									"id_tienda"           => $explode[$i],
 									"activo"              => $sheet->getCell("C".$row)->getValue()
 									]);
 
 
-							fwrite($file, $sheet->getCell("A".$row)->getValue()."\t-YA EXISTE EN LA LISTA DE PRODUCTOS DE LA TIENDA PERO FUE ACTUALIZADO\r\n");
+							fwrite($file, $sheet->getCell("A".$row)->getValue()."\t-YA EXISTE EN LA LISTA DE PRODUCTOS DE LA TIENDA ".$explode[$i]." PERO FUE ACTUALIZADO\r\n");
 
 						} else {
 
 							$this->dbf->insert("lista_productos", [
 									"codigo"              => $sheet->getCell("A".$row)->getValue(),
 									"precio_franquiciado" => $sheet->getCell("B".$row)->getValue(),
-									"id_tienda"           => $id_store,
+									"id_tienda"           => $explode[$i],
 									"activo"              => $sheet->getCell("C".$row)->getValue()
 									]);
 
-						fwrite($file, $sheet->getCell("A".$row)->getValue()."\t-INCLUIDO EN LA LISTA DE PRODUCTOS DE LA TIENDA\r\n");
+						fwrite($file, $sheet->getCell("A".$row)->getValue()."\t-INCLUIDO EN LA LISTA DE PRODUCTOS DE LA TIENDA".$explode[$i]."\r\n");
 						
 						}
 					}
@@ -859,7 +863,10 @@ class appOrdersModel extends CI_Model
 				else{			
 					fwrite($file, $sheet->getCell("A".$row)->getValue()."\t-POSEE ERROR DE TIPO DATO EN PRECIO\r\n");	
 				}
-			}$this->dbf->where(["id_tienda" => $id_store])->update("tiendas", ["charge_product" => "Y"]);
+			}
+
+		}
+
 			return ["msg" => "done", "file" => base_url().$file_uri];
 		}
 

@@ -521,7 +521,6 @@ $(function() {
                 '<th></th>' +
                 '<th></th>' +
                 '<th></th>' +
-                '<th>ID</th>' +
                 '<th>ORDEN</th>' +
                 '<th>FACT</th>' +
                 '<th>GUIA</th>' +
@@ -532,8 +531,6 @@ $(function() {
                 '<th>ENVIO</th>' +
                 '<th>ITEM</th>' +
                 '<th>CANT</th>' +
-                '<th>VOLUMEN</th>' +
-                '<th>PESO</th>' +
                 '<th>FECHA</th>' +
                 '</tr>' +
                 '</thead>' +
@@ -547,7 +544,6 @@ $(function() {
                 '<th></th>' +
                 '<th></th>' +
                 '<th></th>' +
-                '<th>ID</th>' +
                 '<th>ORDEN</th>' +
                 '<th>FACT</th>' +
                 '<th>GUIA</th>' +
@@ -558,8 +554,6 @@ $(function() {
                 '<th>ENVIO</th>' +
                 '<th>ITEM</th>' +
                 '<th>CANT</th>' +
-                '<th>VOLUMEN</th>' +
-                '<th>PESO</th>' +
                 '<th>FECHA</th>' +
                 '</tr>' +
                 '</tfoot>' +
@@ -615,7 +609,6 @@ $(function() {
                     '<td style="text-align: center;"><a href="javascript: void(0)" title="Timeline de la compra" onclick="timelineOrder(' + val._order_id + ')""><i class="material-icons">timeline</i></a></td>' +
                     '<td style="text-align: center;"><a href="javascript: void(0)" title="Asignar Transporte Manual" onclick="modalTransportManual(' + val._order_id + ',' + val._store_id + ')""><i class="material-icons">move_to_inbox</i></a></td>' +
                     '<td style="text-align: center;"><a href="javascript: void(0)" title="Cambiar Estado del Pedido" onclick="modalChangeState(' + val._order_id + ')""><i class="material-icons">flag</i></a></td>' +
-                    '<td>' + val.id + '</td>' +
                     '<td>' + val._order_id + '</td>' +
                     '<td>' + bill + '</td>' +
                     '<td>' + office + '</td>' +
@@ -626,8 +619,6 @@ $(function() {
                     '<td>$ ' + number_format(val._courier_cost, 2, ",", ".") + '</td>' +
                     '<td>' + val._item + '</td>' +
                     '<td>' + val._total_cant + '</td>' +
-                    '<td>' + number_format(val._volume, 2, ",", ".") + ' CM&sup3;</td>' +
-                    '<td>' + val._weight + '</td>' +
                     '<td>' + moment(val._date_create).format("DD-MM-YYYY") + '</td>' +
                     '</tr>';
             });

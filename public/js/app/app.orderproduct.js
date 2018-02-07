@@ -103,7 +103,7 @@ $(function() {
                         '<div class="card hoverable">' +
                         '<div class="card-image">' +
                         '<div class="imgLiquidFills imgLiquid " style="width:auto; height:150px; background: #fafafa">' +
-                        '<a href="../' + val._img_thumbs + '" data-fancybox data-caption="<h3>#' + val._sku + ' – <br /> ' + val._product + '</h3><p><p></p>"><img class="" alt="Woody" src="../' + val._img_thumbs + '"></a>' +
+                        '<a href="../' + val._img_thumbs + '" data-fancybox data-caption="<h4>#' + val._sku + ' – <br /> ' + val._product + '</h4><p><p></p>"><img class="" alt="Woody" src="../' + val._img_thumbs + '"></a>' +
                         '</div> ' +
                         '</div>' +
                         '<div class="card-content"><div class="ribbon-wrapper"><div class="ribbon-color" style="background-color: ' + u_color + ';">' + u_name + '</div></div>';
@@ -112,7 +112,7 @@ $(function() {
                     card += '<p style="font-size: 11px; text-align: left;">' + val._product + '</p>';
                     if (val._discount > 0) {
 
-                        card += '<p style="font-size: 15px; text-align: right;"> $ ' + val._discount + '  / <strong style="text-decoration:line-through; color: red;">' + val._price + ' $</strong></p>';
+                        card += '<p style="font-size: 15px; text-align: right;"> $' + val._discount + '  / <strong style="text-decoration:line-through; color: red;">$' + val._price + ' </strong></p>';
                         price = val._discount;
                     } else {
                         card += '<p style="font-size: 15px; text-align: right; color: #e65100;"> $ ' + val._price + '</p>';

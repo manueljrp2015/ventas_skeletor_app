@@ -8,7 +8,7 @@ class AppClientController extends CI_Controller {
 		parent::__construct();
 		$this->appoAuthModel->oauthChecked();
 		$this->load->model([
-			"app/client/AppClientModel",
+			"app/client/appClientModel",
 			'app/catalogs/appCatalogsModel',
 			'app/functions/appFunctionsModel',
 			]);
@@ -41,7 +41,7 @@ class AppClientController extends CI_Controller {
 	public function getStoreId(){
 		if ($this->input->is_ajax_request()) {
 			 $response = ["text" => json_encode( [
-		        	"data" => $this->AppClientModel->getStoreId($this->input->get('id'))])];
+		        	"data" => $this->appClientModel->getStoreId($this->input->get('id'))])];
 		        $this->load->view("app/response/text", $response);
 		} else {
 			$this->session->sess_destroy();
@@ -65,7 +65,7 @@ class AppClientController extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			if (self::dataStore()) {
 				$response = ["text" => json_encode( [
-		        	"data" => $this->AppClientModel->updateStore($this->input->post())])];
+		        	"data" => $this->appClientModel->updateStore($this->input->post())])];
 		        $this->load->view("app/response/text", $response);
 			} else {
 				self::errorValidation();
@@ -106,7 +106,7 @@ class AppClientController extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			if (self::dataPutStore()) {
 				$response = ["text" => json_encode( [
-		        	"data" => $this->AppClientModel->putStore($this->input->post())])];
+		        	"data" => $this->appClientModel->putStore($this->input->post())])];
 		        $this->load->view("app/response/text", $response);
 			} else {
 				self::errorValidation();
@@ -134,14 +134,14 @@ class AppClientController extends CI_Controller {
 
 	public function getGiroRelationship(){
 		$response = ["text" => json_encode( [
-		        	"data" => $this->AppClientModel->getGiroRelationship($this->input->get())])];
+		        	"data" => $this->appClientModel->getGiroRelationship($this->input->get())])];
 		$this->load->view("app/response/text", $response);
 	}
 
 
 	public function getClientUpdate(){
 		$response = ["text" => json_encode( [
-		        	"data" => $this->AppClientModel->getClientUpdate($this->input->get('id'))])];
+		        	"data" => $this->appClientModel->getClientUpdate($this->input->get('id'))])];
 		$this->load->view("app/response/text", $response);
 	} 
 
@@ -150,7 +150,7 @@ class AppClientController extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			if (self::dataPutStore()) {
 				$response = ["text" => json_encode( [
-		        	"data" => $this->AppClientModel->updateStoreComplete($this->input->post())])];
+		        	"data" => $this->appClientModel->updateStoreComplete($this->input->post())])];
 		        $this->load->view("app/response/text", $response);
 			} else {
 				self::errorValidation();

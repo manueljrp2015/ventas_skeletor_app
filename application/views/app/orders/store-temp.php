@@ -84,7 +84,7 @@
                                         <br>
                                         <h5>Configuración de envio</h5>
                                         <div class="input-field col s12 m6 l4">
-                                            <select name="send" id="send" class="js-states browser-default">
+                                            <select name="send" id="send" class="js-states browser-default" style="width: 100%">
                                                 <option value="" disabled="" selected=""></option>
                                                 <option value="1"> Reparto Santiago</option>
                                                 <option value="2"> COURIER TNT</option>
@@ -425,8 +425,7 @@
                                 <form id="fmfile" class="p-v-xs" enctype="multipart/form-data" method="post">
                                     <div class="input-field col s12 m6 l4">
                                         <select name="store_id_5" id="store_id_5" class="js-states browser-default"
-                                                style="width: 100%">
-                                            <option value="" disabled="" selected=""></option>
+                                                style="width: 100%" multiple>
                                             <?php foreach (json_decode($listStoreActive) as $key => $value): ?>
                                                 <option value="<?= $value->id_tienda ?>"><?= sprintf("%05d", $value->id_tienda) . " - " . $value->nombre_tienda ?></option>
                                             <?php endforeach; ?>

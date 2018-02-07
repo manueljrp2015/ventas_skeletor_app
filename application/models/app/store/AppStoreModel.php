@@ -219,10 +219,13 @@ class appStoreModel extends CI_Model
 	}
 
 	protected function dataOrdersProduct($data){
+
+		$queryprod = $this->db->where(["_sku" => $data['sku']])->get('tbapp_products')->row();
+
 		return [
 			'_product_id'   => $data['producto_id'],
 			'_producto_sku' => $data['sku'],
-			'_cant'         => $data['cant'],
+			'_cant'         => ($queryprod->_und == "CJ") ? ($queryprod->_max_measure * $data['cant']) : $data['cant'],
 			'_rode'         => ($data['cant'] * $data['precio']),
 			'_store_id'     => $data['store'],
 			'_user_id'      => $this->session->userdata('id')
@@ -239,7 +242,7 @@ class appStoreModel extends CI_Model
 			'_status_order_line' => 'a'
 			])->get("tbapp_orders_line")->row();
 
-		
+		$queryprod = $this->db->where(["_sku" => $data['sku']])->get('tbapp_products')->row();
 
 		if($query){
 
@@ -250,7 +253,7 @@ class appStoreModel extends CI_Model
 			'_order_id'          => NULL,
 			'_status_order_line' => 'a'
 			])->update("tbapp_orders_line",[
-				'_cant' => $query->_cant + $data['cant'],
+				'_cant' => ($queryprod->_und == "CJ") ? $query->_cant + ($queryprod->_max_measure * $data['cant']) : $query->_cant + $data['cant'],
 				'_rode' => ($query->_cant + $data['cant']) * $data['precio']
 			]);
 		}

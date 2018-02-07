@@ -95,8 +95,6 @@
         <script src="<?= PATH_PUBLIC_JS.'/app/app.lenguaje.js' ?>"></script>
         <script>
           $.backstretch([
-              "https://www.youtube.com/watch?v=fSkkD215w_c",
-              "https://www.youtube.com/watch?v=fSkkD215w_c",
               "pot-holder.jpg"
           ], {
               fade: 50,

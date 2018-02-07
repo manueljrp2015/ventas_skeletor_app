@@ -16,7 +16,11 @@ class appCartModel extends CI_Model
 	public function getListOrderPendig($store){
 		return $this->db->query("
 			SELECT
-				prod._product,line.*,
+				prod._product,
+				prod._und,
+				prod._max_measure,
+				prod._min_measure,
+				line.*,
 				prod._height,
 				prod._width,
 				prod._large,
@@ -39,18 +43,22 @@ class appCartModel extends CI_Model
 
 		$query = $this->db->get_where("tbapp_products_store",["_producto_id" => $data["p"], "_store_id" => $data["store"]])->row();
 
+		$queryprod = $this->db->where(["id" => $data['p']])->get('tbapp_products')->row();
+		$cantidad = ($queryprod->_und == "CJ") ? ($queryprod->_max_measure * $data['cant']) : $data["cant"];
+
 		if($query){
 			if($query->_discount > 0){
+
 				return $this->db->where(["id" => $data["id"]])->update("tbapp_orders_line",[
-				"_cant"       => $data["cant"], 
-				"_rode"       => ($data["cant"] * $query->_discount), 
+				"_cant"       => $cantidad, 
+				"_rode"       => ($data['cant'] * $query->_discount), 
 				"_product_id" => $data["p"]
 				]);
 			}
 			else{
 				return $this->db->where(["id" => $data["id"]])->update("tbapp_orders_line",[
-				"_cant"       => $data["cant"], 
-				"_rode"       => ($data["cant"] * $query->_price), 
+				"_cant"       => $cantidad, 
+				"_rode"       => ($data['cant'] * $query->_price), 
 				"_product_id" => $data["p"]
 			]);
 			}

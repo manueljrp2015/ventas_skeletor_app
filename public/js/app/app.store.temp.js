@@ -1233,7 +1233,7 @@ uploadFile = function() {
     var file = document.getElementById("file");
     var formData = new FormData();
     formData.append('fileexcel', file.files[0]);
-    formData.append('id_store', $("#store_id_5").val());
+    formData.append('id_store', $("#store_id_5").val().toString());
 
     $.ajax({
             url: 'upload-files-excel',
@@ -1270,7 +1270,7 @@ uploadFile = function() {
                 '</tr></thead><tbody>' +
                 '<tr>' +
                 '<td align="center"><a href="' + response.data.file + '" download="log-response.txt" >Click aqui para descargar la respuesta</a></td>' +
-                '</tr><tr><td>' + file_get_contents(response.data.file) + '</td></tr></body></table>';
+                
 
             $("#info-file").empty().append(tbp);
 
