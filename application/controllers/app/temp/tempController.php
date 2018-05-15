@@ -93,7 +93,7 @@ class TempController extends CI_Controller {
             $this->load->view("app/response/text", $response);
 	}*/
 
-	public function algorithmCalendarOrder(){
+	/*public function algorithmCalendarOrder(){
 		$query = $this->db->where(["_active" => "a"])->get("tbapp_order_calendar")->row();
 		if ($query) {
 
@@ -143,7 +143,22 @@ class TempController extends CI_Controller {
 		} else {
 			var_dump( ["msg" => "no-calendar"] );
 		}
-		
+	}*/
+
+
+	public function insertPosition(){
+
+		$query = $this->dbf->get('positions')->result();
+		if($query){
+			foreach ($query as $key => $value) {
+				$product = $this->dbf->where(["codigo" => $value->code])->update("productos",["position" => $value->position]);
+				echo ''
+			}
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 }
